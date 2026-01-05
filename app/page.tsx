@@ -72,22 +72,19 @@ export default function Home() {
     setCurrentDate(date)
 
     try {
-      const year = date.getFullYear().toString()
-      const month = (date.getMonth() + 1).toString()
+      const year = date.getFullYear()
+      const month = date.getMonth() + 1
       
-      console.log(`Fetching data for ${year}-${month}`)
+      console.log(`Loading data for ${year}-${month}`)
       
-      const response = await fetch(`/api/reddit?year=${year}&month=${month}&_=${Date.now()}`)
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch data`)
-      }
-
-      const result: ApiResponse = await response.json()
-      console.log(`Received ${result.words?.length || 0} words`)
+      // Dynamically import to avoid build issues
+      const { getDataForMonth } = await import('./utils/eraData')
+      const result = getDataForMonth(year, month)
+      
+      console.log(`Loaded ${result.words?.length || 0} words`)
       setData(result.words || [])
     } catch (err) {
-      console.error('Error fetching data:', err)
+      console.error('Error loading data:', err)
       setData([])
     } finally {
       setLoading(false)

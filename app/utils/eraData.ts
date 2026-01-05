@@ -1,7 +1,3 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { promises as fs } from 'fs'
-import path from 'path'
-
 // Era-specific culturally relevant terms
 const ERA_TERMS: Record<string, { text: string; count: number }[]> = {
   // 2007-2009: Early social media, recession
@@ -169,63 +165,32 @@ function shuffleWithSeed<T>(array: T[], seed: number): T[] {
   return shuffled
 }
 
-export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams
-  const year = searchParams.get('year')
-  const month = searchParams.get('month')
+export function getDataForMonth(year: number, month: number) {
+  const era = getEraForDate(year, month)
+  const eraData = ERA_TERMS[era] || ERA_TERMS['2025-2026']
 
-  if (!year || !month) {
-    return NextResponse.json({ error: 'Year and month are required' }, { status: 400 })
-  }
+  // Create unique seed for this month
+  const seed = getMonthSeed(year, month)
+  
+  // Shuffle words differently for each month
+  const shuffledData = shuffleWithSeed(eraData, seed)
+  
+  // Take 12-18 words (varies by month)
+  const wordCount = 12 + Math.floor(seededRandom(seed) * 7)
+  const selectedWords = shuffledData.slice(0, wordCount)
+  
+  // Add month-specific randomization to counts
+  const randomizedData = selectedWords.map((word, index) => ({
+    text: word.text,
+    count: Math.max(15, word.count + Math.floor(seededRandom(seed + index) * 30) - 15)
+  }))
 
-  try {
-    // Try to load bundled dataset from public/raw/
-    const dataPath = path.join(
-      process.cwd(),
-      'public',
-      'raw',
-      `reddit_${year}_${month}.json`
-    )
-
-    try {
-      const fileContent = await fs.readFile(dataPath, 'utf8')
-      const data = JSON.parse(fileContent)
-      return NextResponse.json(data)
-    } catch (fileError) {
-      // File doesn't exist, use era-specific data
-      const yearNum = parseInt(year)
-      const monthNum = parseInt(month)
-      const era = getEraForDate(yearNum, monthNum)
-      const eraData = ERA_TERMS[era] || ERA_TERMS['2025-2026']
-
-      console.log(`Using era data for ${year}-${month}: ${era}`)
-
-      // Create unique seed for this month
-      const seed = getMonthSeed(yearNum, monthNum)
-      
-      // Shuffle words differently for each month
-      const shuffledData = shuffleWithSeed(eraData, seed)
-      
-      // Take 12-18 words (varies by month)
-      const wordCount = 12 + Math.floor(seededRandom(seed) * 7)
-      const selectedWords = shuffledData.slice(0, wordCount)
-      
-      // Add month-specific randomization to counts
-      const randomizedData = selectedWords.map((word, index) => ({
-        text: word.text,
-        count: Math.max(15, word.count + Math.floor(seededRandom(seed + index) * 30) - 15)
-      }))
-
-      return NextResponse.json({
-        year,
-        month,
-        source: 'era-curated',
-        note: `Showing curated cultural terms from the ${era} era`,
-        words: randomizedData,
-      })
-    }
-  } catch (error) {
-    console.error('Error loading Reddit data:', error)
-    return NextResponse.json({ error: 'Failed to load Reddit data' }, { status: 500 })
+  return {
+    year: year.toString(),
+    month: month.toString(),
+    source: 'era-curated',
+    note: `Showing curated cultural terms from the ${era} era`,
+    words: randomizedData,
   }
 }
+
