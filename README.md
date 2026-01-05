@@ -63,6 +63,8 @@ npm install
 npm run dev
 ```
 
+For GitHub Pages deployments, the app is exported statically via `npm run export` so the `out/` folder can be published. The included workflow (`.github/workflows/deploy.yml`) runs this automatically on every push to `main`.
+
 Open [http://localhost:3000](http://localhost:3000)
 
 ## Data Privacy
