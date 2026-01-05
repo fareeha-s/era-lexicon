@@ -31,6 +31,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false)
   const [currentDate, setCurrentDate] = useState(new Date())
   const [memeData, setMemeData] = useState<MemeData[]>([])
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null)
 
   // Generate timeline: current month back to Jan 2007
   const timeline = useMemo(() => {
@@ -221,15 +222,20 @@ export default function Home() {
       </div>
 
       {/* Word Cloud - Takes remaining space */}
-      <div className="flex-1 flex items-center justify-center py-8 md:py-12 pb-24 md:pb-8 relative min-h-[60vh]">
+      <div className="flex-1 flex items-center justify-center py-8 md:py-12 relative min-h-[60vh]">
         {loading || isDragging ? (
           <div className="text-white/40 text-xs md:text-sm font-light tracking-wider animate-pulse">
             {isDragging ? 'Slide to explore...' : 'Loading...'}
           </div>
         ) : data.length > 0 ? (
           <>
-            <FloatingWordCloud words={wordCloudWords} key={`${currentDate.getFullYear()}-${currentDate.getMonth()}`} />
-            <MediaGallery media={currentMedia} key={`media-${currentDate.getFullYear()}`} />
+            <FloatingWordCloud 
+              words={wordCloudWords} 
+              media={currentMedia}
+              onVideoSelect={setSelectedVideo}
+              key={`${currentDate.getFullYear()}-${currentDate.getMonth()}`} 
+            />
+            <MediaGallery media={currentMedia} selectedVideo={selectedVideo} onClose={() => setSelectedVideo(null)} />
           </>
         ) : (
           <div className="text-white/40 text-xs md:text-sm font-light tracking-wider">
