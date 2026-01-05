@@ -118,16 +118,14 @@ export default function FloatingWordCloud({ words, media = [], onVideoSelect }: 
             const mediaItem = media[mediaIndex]
             
             return (
-              <>
+              <span key={`item-${index}`} className="contents">
                 {shouldInsertMedia && mediaItem && (
                   <VideoThumbnail 
-                    key={`media-${mediaIndex}`}
                     item={mediaItem} 
                     onSelect={onVideoSelect} 
                   />
                 )}
                 <span
-                  key={`word-${index}`}
                   className="floating-word font-light tracking-wide text-white/50 hover:text-white transition-all duration-300 cursor-default select-none"
                   style={{
                     fontSize: `${baseFontSize}px`,
@@ -136,7 +134,7 @@ export default function FloatingWordCloud({ words, media = [], onVideoSelect }: 
                 >
                   {word.text}
                 </span>
-              </>
+              </span>
             )
           })}
         </div>
