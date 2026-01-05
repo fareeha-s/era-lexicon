@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState, useEffect, useMemo } from 'react'
 import { toPng } from 'html-to-image'
 
 interface Word {
@@ -20,6 +20,20 @@ export default function FloatingWordCloud({ words, media = [], onVideoSelect }: 
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const [wordPositions, setWordPositions] = useState<Array<{x: number, y: number, vx: number, vy: number}>>([])
 
+  // Combine words and media for mixed display
+  const allItems = useMemo(() => {
+    const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false
+    const mediaCount = isMobile ? 3 : 5
+    return [
+      ...words.map((w, i) => ({ type: 'word' as const, word: w, index: i })),
+      ...(media || []).slice(0, mediaCount).map((m: any, i: number) => ({ 
+        type: 'media' as const, 
+        media: m, 
+        index: words.length + i 
+      }))
+    ]
+  }, [words, media])
+
   // Track mouse position
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -38,17 +52,17 @@ export default function FloatingWordCloud({ words, media = [], onVideoSelect }: 
 
   // Initialize word positions
   useEffect(() => {
-    if (!containerRef.current || words.length === 0) return
+    if (!containerRef.current || allItems.length === 0) return
     
     const container = containerRef.current.getBoundingClientRect()
-    const positions = words.map(() => ({
-      x: Math.random() * container.width,
-      y: Math.random() * container.height,
+    const positions = allItems.map(() => ({
+      x: Math.random() * Math.max(container.width, 800),
+      y: Math.random() * Math.max(container.height, 600),
       vx: 0,
       vy: 0
     }))
     setWordPositions(positions)
-  }, [words.length])
+  }, [allItems.length])
 
   // Animate words with cursor repulsion
   useEffect(() => {
@@ -130,16 +144,6 @@ export default function FloatingWordCloud({ words, media = [], onVideoSelect }: 
     return null
   }
 
-  // Combine words and media for mixed display
-  const allItems = [
-    ...words.map((w, i) => ({ type: 'word' as const, word: w, index: i })),
-    ...(media || []).slice(0, window.innerWidth < 768 ? 3 : 5).map((m: any, i: number) => ({ 
-      type: 'media' as const, 
-      media: m, 
-      index: words.length + i 
-    }))
-  ]
-
   return (
     <div className="relative w-full h-full">
       <button
@@ -196,9 +200,9 @@ export default function FloatingWordCloud({ words, media = [], onVideoSelect }: 
               )
             } else {
               // Media thumbnail
-              const isMobile = window.innerWidth < 768
-              const width = isMobile ? 80 : 120
-              const height = isMobile ? 60 : 90
+              const isMobileRender = typeof window !== 'undefined' ? window.innerWidth < 768 : false
+              const width = isMobileRender ? 80 : 120
+              const height = isMobileRender ? 60 : 90
 
               return (
                 <button

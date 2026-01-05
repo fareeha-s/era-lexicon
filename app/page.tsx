@@ -5,6 +5,7 @@ import FloatingWordCloud from './components/FloatingWordCloud'
 import MediaGallery from './components/MediaGallery'
 import { format, subMonths } from 'date-fns'
 import { ERA_MEDIA } from './data/media'
+import { getDataForMonth } from './utils/eraData'
 
 interface WordData {
   text: string
@@ -47,9 +48,9 @@ export default function Home() {
     return dates
   }, [])
 
-  // Load meme reference data
+  // Load meme reference data (relative path so it works on GitHub Pages)
   useEffect(() => {
-    fetch('/data/memes.csv')
+    fetch('data/memes.csv')
       .then((res) => res.text())
       .then((csv) => {
         const lines = csv.split('\n').slice(1)
@@ -77,9 +78,6 @@ export default function Home() {
       const month = date.getMonth() + 1
       
       console.log(`Loading data for ${year}-${month}`)
-      
-      // Dynamically import to avoid build issues
-      const { getDataForMonth } = await import('./utils/eraData')
       const result = getDataForMonth(year, month)
       
       console.log(`Loaded ${result.words?.length || 0} words`)
