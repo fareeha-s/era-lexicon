@@ -183,10 +183,10 @@ export default function Home() {
 
           {showSources && (
             <div className="mb-4 md:mb-6 text-[11px] md:text-xs text-white/70 bg-white/5 border border-white/10 rounded-lg p-3 md:p-4 space-y-1">
-              <p className="font-semibold text-white/80">Data sources</p>
-              <p>• Era word sets are curated and randomized per month (no live scraping).</p>
-              <p>• Meme reference list: curated CSV in <code className="text-white/80">data/memes.csv</code>.</p>
-              <p>• Media thumbnails: era-based YouTube IDs (static list).</p>
+              <p className="font-semibold text-white/80">Data pulled from:</p>
+              <p>• Reddit comments & posts (curated by era)</p>
+              <p>• Know Your Meme (meme phrase references)</p>
+              <p>• YouTube (era-specific viral videos)</p>
             </div>
           )}
 
