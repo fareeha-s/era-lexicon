@@ -76,10 +76,10 @@ export const ERA_SONGS: Record<string, SongItem[]> = {
       memeContext: 'Harlem Shake videos'
     },
     {
-      title: 'Call Me Maybe',
-      artist: 'Carly Rae Jepsen',
-      spotifyId: '20I6sIOMTCkB6w7ryavxtO',
-      memeContext: 'Everywhere in 2012'
+      title: 'Levels',
+      artist: 'Avicii',
+      spotifyId: '3VGwXMgUQa0DP7Bc3aMDDT',
+      memeContext: 'EDM era meme'
     },
   ],
   
@@ -94,13 +94,13 @@ export const ERA_SONGS: Record<string, SongItem[]> = {
       title: 'Turn Down for What',
       artist: 'DJ Snake, Lil Jon',
       spotifyId: '3EvgxJP4bWdJ6gCKZRhBvA',
-      memeContext: 'Party anthem'
+      memeContext: 'Vine era anthem'
     },
     {
-      title: 'Uptown Funk',
-      artist: 'Mark Ronson, Bruno Mars',
-      spotifyId: '32OlwWuMpZ6b0aN2RZOeMS',
-      memeContext: 'Dance everywhere'
+      title: 'Watch Me (Whip / Nae Nae)',
+      artist: 'Silentó',
+      spotifyId: '3KkhXJpsdVqCQfCl4G5qBz',
+      memeContext: 'Whip/Nae Nae dance'
     },
     {
       title: 'Hotline Bling',
@@ -115,13 +115,13 @@ export const ERA_SONGS: Record<string, SongItem[]> = {
       title: 'Bad and Boujee',
       artist: 'Migos',
       spotifyId: '4Km5HrUvYTaSUfiSGPJeQR',
-      memeContext: 'Raindrop, drop top'
+      memeContext: 'Raindrop, drop top meme'
     },
     {
-      title: 'Despacito',
-      artist: 'Luis Fonsi, Daddy Yankee',
-      spotifyId: '6habFhsOp2NvshLv26DqMb',
-      memeContext: 'Biggest song of 2017'
+      title: 'Mask Off',
+      artist: 'Future',
+      spotifyId: '0VgkVdmE4gld66l8iyGjgx',
+      memeContext: 'Flute meme'
     },
     {
       title: 'In My Feelings',
@@ -130,10 +130,10 @@ export const ERA_SONGS: Record<string, SongItem[]> = {
       memeContext: 'Kiki challenge'
     },
     {
-      title: 'HUMBLE.',
-      artist: 'Kendrick Lamar',
-      spotifyId: '7KXjTSCq5nL1LoYtL7XAwS',
-      memeContext: 'Sit down, be humble'
+      title: 'Gucci Gang',
+      artist: 'Lil Pump',
+      spotifyId: '6FU7p8kd6giCSDD1XVPOUO',
+      memeContext: 'Lil Pump meme era'
     },
   ],
   
@@ -151,31 +151,31 @@ export const ERA_SONGS: Record<string, SongItem[]> = {
       memeContext: 'TikTok dance'
     },
     {
-      title: 'Blinding Lights',
-      artist: 'The Weeknd',
-      spotifyId: '0VjIjW4GlUZAMYd2vXMi3b',
-      memeContext: 'Everywhere'
+      title: 'Say So',
+      artist: 'Doja Cat',
+      spotifyId: '3Dv1eDb0MEgF93GpLXlucZ',
+      memeContext: 'TikTok dance craze'
     },
     {
       title: 'Astronaut In The Ocean',
       artist: 'Masked Wolf',
       spotifyId: '3Ofmpyhv5UAQ70mENzB277',
-      memeContext: 'What you know about'
+      memeContext: 'What you know about meme'
     },
   ],
   
   '2022-2024': [
     {
-      title: 'Anti-Hero',
-      artist: 'Taylor Swift',
-      spotifyId: '0V3wPSX9ygBnCm8psDIegu',
-      memeContext: "It's me, hi"
+      title: 'Corn',
+      artist: 'Schmoyoho',
+      spotifyId: '76PJRfjKtZ0X9BgXt4CjXF',
+      memeContext: 'It\'s corn!'
     },
     {
-      title: 'As It Was',
-      artist: 'Harry Styles',
-      spotifyId: '1vYXt7VSjH9JIM5oGRTfrz',
-      memeContext: 'Massive hit'
+      title: 'Unholy',
+      artist: 'Sam Smith, Kim Petras',
+      spotifyId: '3nqQXoyQOWXiESFLlDF1hG',
+      memeContext: 'TikTok dance trend'
     },
     {
       title: 'Cupid - Twin Ver.',
@@ -184,10 +184,10 @@ export const ERA_SONGS: Record<string, SongItem[]> = {
       memeContext: 'TikTok viral'
     },
     {
-      title: 'Boy\'s a liar Pt. 2',
-      artist: 'PinkPantheress, Ice Spice',
-      spotifyId: '1VYk8wwMXRUmMAlVbzS56C',
-      memeContext: 'Ice Spice era'
+      title: 'Lazy Sunday',
+      artist: 'The Lonely Island',
+      spotifyId: '0eH2Az7LCW3RQMOvdddDja',
+      memeContext: 'SNL viral classic'
     },
   ],
   
@@ -205,16 +205,16 @@ export const ERA_SONGS: Record<string, SongItem[]> = {
       memeContext: 'Brat summer dance'
     },
     {
-      title: 'LUNCH',
-      artist: 'Billie Eilish',
-      spotifyId: '629DixmZGHc7ILtEntuiWE',
-      memeContext: '2024-25 hit'
+      title: 'Ugh!',
+      artist: 'Kawai Sprite',
+      spotifyId: '1QDvYheH7ZoXWqHqjWJKYf',
+      memeContext: 'FNF viral moment'
     },
     {
       title: 'Espresso',
       artist: 'Sabrina Carpenter',
       spotifyId: '2qSkIjg1o9h3YT9RAgYN75',
-      memeContext: 'Summer anthem'
+      memeContext: 'TikTok trend'
     },
   ],
 }
