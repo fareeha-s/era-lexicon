@@ -26,14 +26,21 @@ export const ERA_TWEETS: Record<string, TweetItem[]> = {
       author: 'Jaden Smith',
       handle: '@officialjaden',
       date: '2013',
-      context: 'Deep thoughts era'
+      context: 'Deep thoughts'
     },
     {
-      text: 'I\'m at the airport',
+      text: 'I just got punk\'d',
       author: 'Ashton Kutcher',
       handle: '@aplusk',
       date: '2009',
-      context: 'Early celebrity Twitter'
+      context: 'Early celeb Twitter'
+    },
+    {
+      text: 'im drinking a starbucks latte',
+      author: 'Kim Kardashian',
+      handle: '@KimKardashian',
+      date: '2009',
+      context: 'Early Kim tweets'
     },
   ],
   
@@ -43,7 +50,7 @@ export const ERA_TWEETS: Record<string, TweetItem[]> = {
       author: 'Justin Bieber',
       handle: '@justinbieber',
       date: '2010',
-      context: 'Bieber fever era'
+      context: 'Bieber fever'
     },
     {
       text: 'YOLO',
@@ -51,6 +58,20 @@ export const ERA_TWEETS: Record<string, TweetItem[]> = {
       handle: '@drake',
       date: '2011',
       context: 'YOLO origin'
+    },
+    {
+      text: 'I\'m really rich',
+      author: 'Donald Trump',
+      handle: '@realDonaldTrump',
+      date: '2011',
+      context: 'Trump tweets'
+    },
+    {
+      text: 'Oppa Gangnam Style!',
+      author: 'PSY',
+      handle: '@psy_oppa',
+      date: '2012',
+      context: 'Gangnam Style'
     },
   ],
   
@@ -69,6 +90,27 @@ export const ERA_TWEETS: Record<string, TweetItem[]> = {
       date: '2014',
       context: 'Classic dril'
     },
+    {
+      text: 'What color is this dress?',
+      author: 'BuzzFeed',
+      handle: '@BuzzFeed',
+      date: 'Feb 2015',
+      context: 'The dress'
+    },
+    {
+      text: 'Left shark won the super bowl',
+      author: 'Katy Perry',
+      handle: '@katyperry',
+      date: 'Feb 2015',
+      context: 'Left shark'
+    },
+    {
+      text: 'Why you always lying',
+      author: 'Nicholas Fraser',
+      handle: '@downgoes',
+      date: '2015',
+      context: 'Lying meme'
+    },
   ],
   
   '2016-2018': [
@@ -77,21 +119,42 @@ export const ERA_TWEETS: Record<string, TweetItem[]> = {
       author: 'Cloe Feldman',
       handle: '@CloeCouture',
       date: 'May 15, 2018',
-      context: 'Audio illusion debate'
+      context: 'Audio debate'
     },
     {
       text: 'Cash me outside how bout dah',
       author: 'Danielle Bregoli',
       handle: '@bhadbhabie',
       date: '2016',
-      context: 'Dr Phil meme'
+      context: 'Dr Phil'
     },
     {
-      text: 'This is America',
-      author: 'Donald Glover',
-      handle: '@donaldglover',
-      date: '2018',
-      context: 'Song release'
+      text: 'covfefe',
+      author: 'Donald Trump',
+      handle: '@realDonaldTrump',
+      date: 'May 2017',
+      context: 'Covfefe tweet'
+    },
+    {
+      text: 'Damn Daniel! Back at it again with the white vans!',
+      author: 'Josh Holz',
+      handle: '@josholzz',
+      date: '2016',
+      context: 'Damn Daniel'
+    },
+    {
+      text: 'Salt Bae is the best thing on the internet',
+      author: 'Complex',
+      handle: '@Complex',
+      date: '2017',
+      context: 'Salt Bae viral'
+    },
+    {
+      text: 'I have the best words',
+      author: 'Donald Trump',
+      handle: '@realDonaldTrump',
+      date: '2016',
+      context: 'Trump quote'
     },
   ],
   
@@ -104,11 +167,39 @@ export const ERA_TWEETS: Record<string, TweetItem[]> = {
       context: 'Bernie meme'
     },
     {
-      text: 'happy new year! here\'s to a great 2019',
-      author: 'Lil Nas X',
-      handle: '@LilNasX',
-      date: 'Jan 2019',
-      context: 'Before Old Town Road blew up'
+      text: 'this quarantine got me feeling some type of way',
+      author: 'Chrissy Teigen',
+      handle: '@chrissyteigen',
+      date: 'Mar 2020',
+      context: 'Pandemic tweets'
+    },
+    {
+      text: 'There is 1 impostor among us',
+      author: 'Among Us',
+      handle: '@AmongUsGame',
+      date: '2020',
+      context: 'Among Us peak'
+    },
+    {
+      text: 'im baby',
+      author: 'Various Users',
+      handle: '@twitter',
+      date: '2019',
+      context: 'Im baby meme'
+    },
+    {
+      text: 'ok boomer',
+      author: 'Gen Z',
+      handle: '@twitter',
+      date: '2019',
+      context: 'Ok boomer trend'
+    },
+    {
+      text: 'STOP THE COUNT',
+      author: 'Donald Trump',
+      handle: '@realDonaldTrump',
+      date: 'Nov 2020',
+      context: 'Election 2020'
     },
   ],
   
@@ -121,35 +212,70 @@ export const ERA_TWEETS: Record<string, TweetItem[]> = {
       context: 'Demure trend'
     },
     {
-      text: 'Brat summer',
-      author: 'Charli XCX',
-      handle: '@charli_xcx',
-      date: '2024',
-      context: 'Brat album'
-    },
-    {
-      text: 'Espresso',
-      author: 'Sabrina Carpenter',
-      handle: '@SabrinaAnnLynn',
-      date: '2024',
-      context: 'That\'s that me espresso'
-    },
-    {
-      text: 'Rizz',
-      author: 'Kai Cenat',
-      handle: '@KaiCenat',
+      text: 'its giving....',
+      author: 'Various Users',
+      handle: '@twitter',
       date: '2022',
-      context: 'Gen Z slang'
+      context: 'Its giving meme'
+    },
+    {
+      text: 'she ate and left no crumbs',
+      author: 'Stan Twitter',
+      handle: '@twitter',
+      date: '2022',
+      context: 'She ate phrase'
+    },
+    {
+      text: 'Wednesday Addams dance is everything',
+      author: 'Jenna Ortega',
+      handle: '@jennaortega',
+      date: 'Nov 2022',
+      context: 'Wednesday show'
+    },
+    {
+      text: 'its corn! a big lump with knobs',
+      author: 'Recess Therapy',
+      handle: '@RecessTherapy',
+      date: 'Aug 2022',
+      context: 'Corn kid'
+    },
+    {
+      text: 'NPC energy',
+      author: 'Various Users',
+      handle: '@twitter',
+      date: '2023',
+      context: 'NPC meme'
+    },
+    {
+      text: 'Roman Empire',
+      author: 'Various Users',
+      handle: '@twitter',
+      date: '2023',
+      context: 'Roman Empire trend'
     },
   ],
   
   '2025-2026': [
     {
-      text: 'APT.',
+      text: 'the great meme reset is happening',
+      author: 'Various Users',
+      handle: '@twitter',
+      date: 'Jan 2026',
+      context: 'Meme reset'
+    },
+    {
+      text: 'we bringing back 2010s memes',
+      author: 'Various Users',
+      handle: '@twitter',
+      date: 'Jan 2026',
+      context: 'Meme comeback'
+    },
+    {
+      text: 'APT dance is taking over',
       author: 'ROSÉ',
       handle: '@roses_are_rosie',
       date: '2025',
-      context: 'APT dance challenge'
+      context: 'APT viral'
     },
   ],
 }
