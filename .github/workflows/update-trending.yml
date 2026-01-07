@@ -1,0 +1,47 @@
+name: Update Trending Content
+
+on:
+  # Run weekly on Sunday at midnight
+  schedule:
+    - cron: '0 0 * * 0'
+  # Also allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  update-content:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Fetch trending content
+        run: node scripts/update-trending.js
+
+      - name: Build site
+        run: npm run export
+
+      - name: Prepare static files
+        run: |
+          rm -rf _next index.html 404.html
+          mkdir -p _next
+          cp -r .next/static ./_next/
+          cp .next/server/app/index.html ./index.html
+          cp .next/server/app/_not-found.html ./404.html
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git diff --staged --quiet || git commit -m "Auto-update trending content $(date +'%Y-%m-%d')"
+          git push
+
