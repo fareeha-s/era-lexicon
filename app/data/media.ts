@@ -204,13 +204,13 @@ export const ERA_MEDIA: Record<string, MediaItem[]> = {
   '2016-2018': [
     {
       type: 'youtube',
-      title: 'Crypto Bro Explaining Blockchain',
-      id: 'g-zIbVEjVpQ',
+      title: 'Cash Me Outside Dr Phil',
+      id: 'jgflCE7zRpc',
     },
     {
       type: 'youtube',
-      title: 'Bitcoin Pizza Day',
-      id: 'A5PSJYfJbLk',
+      title: 'Bottle Flip Challenge',
+      id: 'kJXRBjC7QVc',
     },
     {
       type: 'youtube',
@@ -224,7 +224,7 @@ export const ERA_MEDIA: Record<string, MediaItem[]> = {
     },
     {
       type: 'youtube',
-      title: 'This Is America Childish Gambino',
+      title: 'This Is America',
       id: 'VYOjWnS4cMY',
     },
     {
@@ -234,8 +234,8 @@ export const ERA_MEDIA: Record<string, MediaItem[]> = {
     },
     {
       type: 'youtube',
-      title: 'Explaining Blockchain',
-      id: 'SSo_EIwHSd4',
+      title: 'Fidget Spinner Tricks',
+      id: 'Yx7e8qQy56U',
     },
     {
       type: 'youtube',
@@ -247,8 +247,8 @@ export const ERA_MEDIA: Record<string, MediaItem[]> = {
   '2019-2021': [
     {
       type: 'youtube',
-      title: 'Among Us But Animated',
-      id: 'grd-K33tOSM',
+      title: 'Bernie Sanders Mittens Meme',
+      id: 'KgbBP9Em00A',
     },
     {
       type: 'youtube',
@@ -257,8 +257,8 @@ export const ERA_MEDIA: Record<string, MediaItem[]> = {
     },
     {
       type: 'youtube',
-      title: 'GameStop Explained',
-      id: 'zeiv685c4lg',
+      title: 'Among Us Original Trailer',
+      id: 'grd-K33tOSM',
     },
     {
       type: 'youtube',
@@ -267,8 +267,8 @@ export const ERA_MEDIA: Record<string, MediaItem[]> = {
     },
     {
       type: 'youtube',
-      title: 'NFT Explained',
-      id: 'Oz9zw7-_vhM',
+      title: 'Ratatouille Musical TikTok',
+      id: 'M1EcVWSSgOY',
     },
     {
       type: 'youtube',
@@ -277,69 +277,69 @@ export const ERA_MEDIA: Record<string, MediaItem[]> = {
     },
     {
       type: 'youtube',
-      title: 'Line Goes Up NFT Documentary',
-      id: 'YQ_xWvX1n9g',
+      title: 'Sea Shanty TikTok',
+      id: '8q8WvQlPrw8',
     },
     {
       type: 'youtube',
-      title: 'WAGMI Explained',
-      id: 'PvZGPx3INQY',
+      title: 'Old Town Road',
+      id: 'w2Ov5jzm3j8',
     },
   ],
   
   '2022-2024': [
     {
       type: 'youtube',
-      title: 'Sam Altman Fired OpenAI',
-      id: 'VT4ySKMS4uY',
+      title: 'Wednesday Dance',
+      id: 'xYkSYWPFh1k',
     },
     {
       type: 'youtube',
-      title: 'ChatGPT Announcement',
-      id: 'U9mJuUkhUzk',
+      title: 'Grimace Shake Trend',
+      id: '9LUMx2qPDlQ',
     },
     {
       type: 'youtube',
-      title: 'Midjourney v5 Reveal',
-      id: '0dh_K9bKTBk',
+      title: 'Corn Kid Interview',
+      id: '_caMQpiwiaU',
     },
     {
       type: 'youtube',
-      title: 'AI Alignment Debate',
-      id: 'L_uX4qp6da0',
+      title: 'Girl Dinner Explained',
+      id: 'gKzWLM-AUt8',
     },
     {
       type: 'youtube',
-      title: 'e/acc Explained',
-      id: 'sNACHEw8D-U',
+      title: 'Bing Chilling John Cena',
+      id: 'bOZ2b5adjd4',
     },
     {
       type: 'youtube',
-      title: 'Touch Grass Meme',
-      id: 'eFDuQiW1xHs',
-    },
-    {
-      type: 'youtube',
-      title: 'FTX Collapse Explained',
-      id: 'iLLeZPSiVI0',
+      title: 'Roman Empire TikTok',
+      id: 'SNYLv9TgsTA',
     },
     {
       type: 'youtube',
       title: 'NPC Livestream',
       id: '0zG_lckuzbo',
     },
+    {
+      type: 'youtube',
+      title: 'ChatGPT Revealed',
+      id: 'U9mJuUkhUzk',
+    },
   ],
   
   '2025-2026': [
     {
       type: 'youtube',
-      title: 'Founder Mode Paul Graham',
-      id: 'nZiuiFs0tVo',
+      title: 'Very Demure Very Mindful',
+      id: 'wWHjV35mh6k',
     },
     {
       type: 'youtube',
-      title: 'DeepSeek R1 Explained',
-      id: 'bI-FS7aGJl0',
+      title: 'Hawk Tuah Girl Interview',
+      id: 'oIkhyHPMcAg',
     },
     {
       type: 'youtube',
@@ -348,18 +348,13 @@ export const ERA_MEDIA: Record<string, MediaItem[]> = {
     },
     {
       type: 'youtube',
-      title: 'OpenAI o3 Demo',
-      id: 'SKBG1sqdyIU',
+      title: 'Apple Dance Trend',
+      id: 'qYApvyc0S4k',
     },
     {
       type: 'youtube',
       title: 'Brat Summer Explained',
       id: 'v1RxTDJRZOc',
-    },
-    {
-      type: 'youtube',
-      title: 'Very Demure Very Mindful',
-      id: 'wWHjV35mh6k',
     },
     {
       type: 'youtube',
@@ -380,6 +375,11 @@ export const ERA_MEDIA: Record<string, MediaItem[]> = {
       type: 'youtube',
       title: 'ChatGPT-4o Demo',
       id: 'DQacCB9tDaw',
+    },
+    {
+      type: 'youtube',
+      title: 'Mr Beast Squid Game',
+      id: '0e3GPea1Tyg',
     },
   ],
 }

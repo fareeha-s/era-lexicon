@@ -92,11 +92,11 @@ export const ERA_TWEETS: Record<string, TweetItem[]> = {
   
   '2013-2015': [
     {
-      text: 'Make something people want.',
-      author: 'Paul Graham',
-      handle: '@paulg',
-      date: '2014',
-      context: 'YC motto'
+      text: 'WHAT ARE THOSEEEEE',
+      author: 'Brandon Moore',
+      handle: '@youngbusco',
+      date: 'Jun 2015',
+      context: 'Viral meme origin'
     },
     {
       text: 'If only Bradley\'s arm was longer. Best photo ever. #oscars',
@@ -116,18 +116,18 @@ export const ERA_TWEETS: Record<string, TweetItem[]> = {
   
   '2016-2018': [
     {
-      text: 'In retrospect, it was inevitable',
-      author: 'Crypto Twitter',
-      handle: '@CT_inevitable',
-      date: '2017',
-      context: 'Bitcoin rise'
+      text: 'Cash me ousside how bout dah',
+      author: 'Danielle Bregoli',
+      handle: '@bhadbhabie',
+      date: '2016',
+      context: 'Dr Phil meme'
     },
     {
-      text: 'Bitcoin is rat poison squared',
-      author: 'Warren Buffett',
-      handle: '@WarrenBuffett',
-      date: 'May 2018',
-      context: 'Crypto skeptic'
+      text: 'Yanny or Laurel?',
+      author: 'Cloe Feldman',
+      handle: '@CloeCouture',
+      date: 'May 15, 2018',
+      context: 'Audio illusion debate'
     },
     {
       text: 'nobody:\nabsolutely nobody:\nstill nobody:\nme:',
@@ -140,49 +140,49 @@ export const ERA_TWEETS: Record<string, TweetItem[]> = {
   
   '2019-2021': [
     {
-      text: 'Have fun staying poor',
-      author: 'Various CT',
-      handle: '@CT_Anon',
+      text: 'Not me having to clean up my Twitter from saying "if I get corona I get corona"',
+      author: 'Brady Sluder',
+      handle: '@BradySluder',
+      date: 'Mar 2020',
+      context: 'COVID denial meme'
+    },
+    {
+      text: 'i am once again asking for your financial support',
+      author: 'Bernie Sanders',
+      handle: '@BernieSanders',
+      date: 'Jan 2020',
+      context: 'Bernie meme'
+    },
+    {
+      text: 'this you?',
+      author: 'Twitter',
+      handle: '@twitter',
       date: '2020',
-      context: 'Crypto Twitter HFSP'
-    },
-    {
-      text: 'gm',
-      author: 'Everyone on CT',
-      handle: '@cryptotwitter',
-      date: '2020-2021',
-      context: 'Good morning ritual'
-    },
-    {
-      text: 'probably nothing',
-      author: 'Crypto Twitter',
-      handle: '@CT',
-      date: '2020-2021',
-      context: 'NFT era sarcasm'
+      context: 'Calling out hypocrisy'
     },
   ],
   
   '2022-2024': [
     {
-      text: 'The fundamental problem with programming is that it is a constant battle against complexity',
-      author: 'John Carmack',
-      handle: '@ID_AA_Carmack',
-      date: '2023',
-      context: 'AGI takes'
+      text: 'Very demure, very mindful',
+      author: 'Jools Lebron',
+      handle: '@joolieannie',
+      date: 'Aug 2024',
+      context: 'Demure trend'
     },
     {
-      text: 'effective accelerationism is the only way forward',
-      author: 'Based Beff Jezos',
-      handle: '@BasedBeffJezos',
-      date: '2023',
-      context: 'e/acc movement'
+      text: 'hawk tuah spit on that thang',
+      author: 'Haliey Welch',
+      handle: '@hay_welch',
+      date: 'Jun 2024',
+      context: 'Hawk tuah girl'
     },
     {
-      text: 'touch grass',
-      author: 'Everyone',
-      handle: '@internet',
-      date: '2022-2024',
-      context: 'Go outside'
+      text: 'It\'s corn! A big lump with knobs',
+      author: 'Tariq',
+      handle: '@tariq',
+      date: 'Aug 2022',
+      context: 'Corn kid'
     },
   ],
   
