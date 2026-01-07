@@ -47,12 +47,19 @@ type ContentItem =
   | { type: 'song'; data: Song; id: string }
   | { type: 'tweet'; data: Tweet; id: string }
 
-// GIF/Image thumbnail for early internet era - memoized
+// GIF/Image thumbnail for early internet era - memoized - HARD RULE: Only show if image loads
 const GifImageThumbnail = memo(function GifImageThumbnail({ item }: { item: any }) {
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [hasError, setHasError] = useState(false)
+
+  // HARD RULE: If image fails to load, NEVER show it
+  if (hasError) return null
+
   return (
     <div
       className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-lg overflow-hidden border border-white/20 active:border-white/40 md:hover:border-white/40 transition-all active:scale-95 md:hover:scale-105 flex-shrink-0 will-change-transform touch-manipulation"
       title={item.title}
+      style={{ opacity: isLoaded ? 1 : 0 }}
     >
       <NextImage
         src={item.url}
@@ -60,25 +67,33 @@ const GifImageThumbnail = memo(function GifImageThumbnail({ item }: { item: any 
         fill
         sizes="(max-width: 640px) 96px, (max-width: 768px) 128px, (max-width: 1024px) 160px, 192px"
         className="object-cover opacity-80"
+        onLoad={() => setIsLoaded(true)}
+        onError={() => setHasError(true)}
       />
     </div>
   )
 })
 
-// Video thumbnail - memoized and optimized
+// Video thumbnail - memoized and optimized - HARD RULE: Only show if video is actually available
 const VideoThumbnail = memo(function VideoThumbnail({ item, onSelect }: { item: any, onSelect?: (id: string) => void }) {
   const [isAvailable, setIsAvailable] = useState(false)
   
   useEffect(() => {
     const img = new window.Image()
     img.onload = () => {
+      // STRICT CHECK: Only show if real thumbnail (not default/placeholder)
       if (img.naturalWidth > 120 && img.naturalHeight > 90) {
         setIsAvailable(true)
       }
     }
+    img.onerror = () => {
+      // Explicitly handle errors - never show broken videos
+      setIsAvailable(false)
+    }
     img.src = `https://img.youtube.com/vi/${item.id}/mqdefault.jpg`
   }, [item.id])
 
+  // HARD RULE: If not available, NEVER render
   if (!isAvailable) return null
 
   return (

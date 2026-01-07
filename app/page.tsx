@@ -393,31 +393,23 @@ export default function Home() {
           </div>
         )}
 
-        {/* End of timeline - nice footer */}
+        {/* End of timeline */}
         {loadedCount >= timeline.length && (
           <div className="flex flex-col items-center justify-center py-20 md:py-32 px-4 text-center animate-fade-in">
-            <div className="max-w-2xl space-y-6">
-              <h2 className="text-3xl md:text-5xl font-light text-white/90 tracking-wide">
-                The Beginning
+            <div className="max-w-xl space-y-6">
+              <h2 className="text-2xl md:text-4xl font-light text-white/80 tracking-wide">
+                2000
               </h2>
-              <p className="text-base md:text-xl text-white/60 font-light leading-relaxed">
-                You&apos;ve scrolled through <span className="text-white/80">25+ years</span> of internet culture,
-                from memes to moments that defined how we communicate online.
+              <p className="text-sm md:text-base text-white/50 font-light">
+                Forums. Flash. Dial-up.
               </p>
-              <p className="text-sm md:text-base text-white/40 font-light">
-                The internet started here, in 2000, with simple forums, Flash animations, and dial-up connections.
-                Now look how far we&apos;ve come.
-              </p>
-              <div className="pt-8 space-y-4">
+              <div className="pt-6 space-y-3">
                 <button
                   onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                  className="text-white/60 hover:text-white transition-colors underline text-sm md:text-base"
+                  className="text-white/50 hover:text-white/80 transition-colors text-xs md:text-sm"
                 >
-                  ↑ Back to {new Date().getFullYear()}
+                  ↑ back to top
                 </button>
-                <div className="text-xs md:text-sm text-white/30">
-                  Made with ✨ by <a href="https://fareeha.sh" target="_blank" rel="noopener noreferrer" className="underline hover:text-white/50 transition-colors">fareeha</a>
-                </div>
               </div>
             </div>
           </div>
