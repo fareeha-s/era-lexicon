@@ -64,40 +64,32 @@ export default function Home() {
     return '2000-2003'
   }
 
-  // Check if date is within last 12 months (skip filtering for recent content)
-  const isRecentDate = (date: Date): boolean => {
-    const now = new Date()
-    const oneYearAgo = new Date(now.getFullYear() - 1, now.getMonth(), 1)
-    return date >= oneYearAgo
-  }
-
-  // Simple hash function for filtering
-  const hashString = (str: string): number => {
-    let hash = 0
-    for (let i = 0; i < str.length; i++) {
-      const char = str.charCodeAt(i)
-      hash = ((hash << 5) - hash) + char
-      hash = hash & hash
-    }
-    return Math.abs(hash)
-  }
-
-  // Filter content to only show in 3 months max per year
-  const filterByMonthEligibility = <T extends { id?: string; title?: string; text?: string; spotifyId?: string }>(
+  // Get a UNIQUE slice of content for each month
+  // Key insight: use absolute month index to rotate through content
+  // So month 0 gets items 0-2, month 1 gets items 3-5, etc.
+  const getContentSlice = <T,>(
     items: T[],
-    currentMonth: number
+    absoluteMonthIndex: number,
+    itemsPerMonth: number = 3
   ): T[] => {
-    return items.filter(item => {
-      const itemId = item.id || item.title || item.text || item.spotifyId || ''
-      const hash = hashString(itemId)
-      const baseMonth = hash % 12
-      const eligibleMonths = [
-        baseMonth,
-        (baseMonth + 4) % 12,
-        (baseMonth + 8) % 12
-      ]
-      return eligibleMonths.includes(currentMonth)
-    })
+    if (items.length === 0) return []
+    
+    // Shuffle the array first with a consistent seed for this session
+    const shuffled = shuffleArray(items, randomSeed)
+    
+    // Calculate the starting position based on month index
+    // Use modulo to wrap around when we run out of content
+    const totalItems = shuffled.length
+    const startIdx = (absoluteMonthIndex * itemsPerMonth) % totalItems
+    
+    // Get items with wrap-around
+    const result: T[] = []
+    for (let i = 0; i < Math.min(itemsPerMonth, totalItems); i++) {
+      const idx = (startIdx + i) % totalItems
+      result.push(shuffled[idx])
+    }
+    
+    return result
   }
 
   // Set up intersection observer for lazy loading
@@ -282,22 +274,31 @@ export default function Home() {
                 const eraSongs = ERA_SONGS[era] || []
                 const eraTweets = ERA_TWEETS[era] || []
                 
-                // Apply filtering and shuffling
-                const media = isRecentDate(date) 
-                  ? shuffleArray(eraMedia, randomSeed + index)
-                  : shuffleArray(filterByMonthEligibility(eraMedia, month), randomSeed + index)
+                // Calculate absolute month index (unique for each month in timeline)
+                // This ensures EVERY month gets different content
+                const absoluteMonthIndex = index
                 
-                const songs = isRecentDate(date)
-                  ? shuffleArray(eraSongs, randomSeed + index + 1000)
-                  : shuffleArray(filterByMonthEligibility(eraSongs, month), randomSeed + index + 1000)
+                // Get DIFFERENT slices for each month
+                // Media: 2 items per month (videos/gifs)
+                // Songs: 2 items per month
+                // Tweets: 2 items per month
+                const media = getContentSlice(eraMedia, absoluteMonthIndex, 2)
+                const songs = getContentSlice(eraSongs, absoluteMonthIndex + 100, 2)
+                const tweets = getContentSlice(eraTweets, absoluteMonthIndex + 200, 2)
                 
-                const tweets = isRecentDate(date)
-                  ? shuffleArray(eraTweets, randomSeed + index + 2000)
-                  : shuffleArray(filterByMonthEligibility(eraTweets, month), randomSeed + index + 2000)
+                // Also rotate words - take different subset each month
+                const shuffledWords = shuffleArray(words, randomSeed)
+                const wordsPerMonth = Math.max(8, Math.ceil(words.length / 3))
+                const wordStartIdx = (absoluteMonthIndex * 3) % Math.max(1, words.length)
+                const selectedWords: typeof words = []
+                for (let i = 0; i < Math.min(wordsPerMonth, words.length); i++) {
+                  const idx = (wordStartIdx + i) % words.length
+                  selectedWords.push(shuffledWords[idx])
+                }
                 
                 // Transform words for display
-                const wordCloudWords = words.map(w => {
-                  const counts = words.map(word => word.count)
+                const wordCloudWords = selectedWords.map(w => {
+                  const counts = selectedWords.map(word => word.count)
                   const minCount = Math.min(...counts)
                   const maxCount = Math.max(...counts)
                   const normalizedSize = maxCount > minCount
