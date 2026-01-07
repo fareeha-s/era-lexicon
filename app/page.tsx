@@ -242,9 +242,11 @@ export default function Home() {
           {showSources && (
             <div className="mb-4 md:mb-6 text-[11px] md:text-xs text-white/70 bg-white/5 border border-white/10 rounded-lg p-3 md:p-4 space-y-1">
               <p className="font-semibold text-white/80">sources:</p>
-              <p>• reddit top posts by era</p>
-              <p>• know your meme</p>
-              <p>• youtube viral videos</p>
+              <p>• reddit (trending words by era)</p>
+              <p>• twitter/x (iconic tweets)</p>
+              <p>• youtube (viral moments & memes)</p>
+              <p>• spotify (era-defining songs)</p>
+              <p>• know your meme (cultural references)</p>
             </div>
           )}
 
