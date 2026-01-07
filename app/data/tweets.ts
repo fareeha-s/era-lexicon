@@ -147,18 +147,18 @@ export const ERA_TWEETS: Record<string, TweetItem[]> = {
       context: 'Brat album era'
     },
     {
-      text: 'the vibe shift is real',
-      author: 'Various',
-      handle: '@twitter',
-      date: '2025',
-      context: 'Cultural shift'
+      text: 'we\'re so back',
+      author: 'Elon Musk',
+      handle: '@elonmusk',
+      date: 'Jan 2025',
+      context: 'X rebrand era'
     },
     {
-      text: 'we\'re so back',
-      author: 'Internet',
-      handle: '@everyone',
-      date: '2024-2025',
-      context: 'Optimism return'
+      text: 'I\'m very demure, very mindful, very cutesy',
+      author: 'Jools Lebron',
+      handle: '@joolieannie',
+      date: 'Aug 2024',
+      context: 'Original demure tweet'
     },
   ],
 }
