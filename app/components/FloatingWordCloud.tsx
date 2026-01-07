@@ -15,10 +15,19 @@ interface Song {
   memeContext?: string
 }
 
+interface Tweet {
+  text: string
+  author: string
+  handle: string
+  date: string
+  context?: string
+}
+
 interface FloatingWordCloudProps {
   words: Word[]
   media?: any[]
   songs?: Song[]
+  tweets?: Tweet[]
   onVideoSelect?: (id: string) => void
 }
 
@@ -85,7 +94,37 @@ function SongCard({ song }: { song: Song }) {
   )
 }
 
-export default function FloatingWordCloud({ words, media = [], songs = [], onVideoSelect }: FloatingWordCloudProps) {
+// Tweet card component
+function TweetCard({ tweet }: { tweet: Tweet }) {
+  return (
+    <div className="block w-40 md:w-48 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-blue-400/30 rounded-lg p-2 md:p-3 transition-all hover:scale-105 flex-shrink-0">
+      <div className="space-y-2">
+        <div className="flex items-start gap-2">
+          <svg className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+          <div className="flex-1 min-w-0">
+            <p className="text-[9px] md:text-[10px] text-white/80 font-medium">{tweet.author}</p>
+            <p className="text-[8px] md:text-[9px] text-white/40">{tweet.handle}</p>
+          </div>
+        </div>
+        <p className="text-[10px] md:text-xs text-white/90 leading-snug line-clamp-3">
+          {tweet.text}
+        </p>
+        <div className="flex items-center justify-between">
+          <p className="text-[7px] md:text-[8px] text-white/30">{tweet.date}</p>
+          {tweet.context && (
+            <p className="text-[7px] md:text-[8px] text-white/30 italic truncate max-w-[60%]">
+              {tweet.context}
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default function FloatingWordCloud({ words, media = [], songs = [], tweets = [], onVideoSelect }: FloatingWordCloudProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [isGenerating, setIsGenerating] = useState(false)
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
@@ -201,10 +240,15 @@ export default function FloatingWordCloud({ words, media = [], songs = [], onVid
             const shouldInsertMedia = index > 0 && index % 4 === 0 && media[mediaIndex]
             const mediaItem = media[mediaIndex]
             
-            // Insert song after every 6 words (offset from videos)
+            // Insert song after every 6 words
             const songIndex = Math.floor(index / 6)
             const shouldInsertSong = index > 0 && index % 6 === 0 && songs[songIndex]
             const songItem = songs[songIndex]
+            
+            // Insert tweet after every 5 words
+            const tweetIndex = Math.floor(index / 5)
+            const shouldInsertTweet = index > 0 && index % 5 === 0 && tweets[tweetIndex]
+            const tweetItem = tweets[tweetIndex]
             
             return (
               <span key={`item-${index}`} className="contents">
@@ -216,6 +260,9 @@ export default function FloatingWordCloud({ words, media = [], songs = [], onVid
                 )}
                 {shouldInsertSong && songItem && (
                   <SongCard song={songItem} />
+                )}
+                {shouldInsertTweet && tweetItem && (
+                  <TweetCard tweet={tweetItem} />
                 )}
                 <span
                   ref={(el) => {

@@ -6,6 +6,7 @@ import MediaGallery from './components/MediaGallery'
 import { format, subMonths } from 'date-fns'
 import { ERA_MEDIA } from './data/media'
 import { ERA_SONGS } from './data/songs'
+import { ERA_TWEETS } from './data/tweets'
 import { getDataForMonth } from './utils/eraData'
 
 interface WordData {
@@ -179,6 +180,19 @@ export default function Home() {
     return ERA_SONGS[era] || []
   }, [currentDate])
 
+  // Get tweets for current era
+  const currentTweets = useMemo(() => {
+    const year = currentDate.getFullYear()
+    let era = '2025-2026'
+    if (year < 2025) era = '2022-2024'
+    if (year < 2022) era = '2019-2021'
+    if (year < 2019) era = '2016-2018'
+    if (year < 2016) era = '2013-2015'
+    if (year < 2013) era = '2010-2012'
+    if (year < 2010) era = '2007-2009'
+    return ERA_TWEETS[era] || []
+  }, [currentDate])
+
   return (
     <main className="relative min-h-screen bg-black flex flex-col">
       {/* Header with Slider - Top */}
@@ -282,6 +296,7 @@ export default function Home() {
               words={wordCloudWords} 
               media={currentMedia}
               songs={currentSongs}
+              tweets={currentTweets}
               onVideoSelect={setSelectedVideo}
               key={`${currentDate.getFullYear()}-${currentDate.getMonth()}`} 
             />
