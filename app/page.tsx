@@ -213,32 +213,57 @@ export default function Home() {
     return '2000-2003'
   }
 
-  // Get media for current era - filtered to max 3 months per item, then shuffled
+  // Check if date is within last 12 months (skip filtering for recent content)
+  const isRecentDate = (date: Date): boolean => {
+    const now = new Date()
+    const oneYearAgo = new Date(now.getFullYear() - 1, now.getMonth(), 1)
+    return date >= oneYearAgo
+  }
+
+  // Get media for current era - filtered to max 3 months per item (except recent), then shuffled
   const currentMedia = useMemo(() => {
     const year = currentDate.getFullYear()
     const month = currentDate.getMonth()
     const era = getEra(year)
     const eraMedia = ERA_MEDIA[era] || []
+    
+    // Skip filtering for recent dates - show all content
+    if (isRecentDate(currentDate)) {
+      return shuffleArray(eraMedia)
+    }
+    
     const filtered = filterByMonthEligibility(eraMedia, month)
     return shuffleArray(filtered.length > 0 ? filtered : eraMedia.slice(0, 3))
   }, [currentDate, shuffleKey])
 
-  // Get songs for current era - filtered to max 3 months per item, then shuffled
+  // Get songs for current era - filtered to max 3 months per item (except recent), then shuffled
   const currentSongs = useMemo(() => {
     const year = currentDate.getFullYear()
     const month = currentDate.getMonth()
     const era = getEra(year)
     const eraSongs = ERA_SONGS[era] || []
+    
+    // Skip filtering for recent dates - show all content
+    if (isRecentDate(currentDate)) {
+      return shuffleArray(eraSongs)
+    }
+    
     const filtered = filterByMonthEligibility(eraSongs, month)
     return shuffleArray(filtered.length > 0 ? filtered : eraSongs.slice(0, 2))
   }, [currentDate, shuffleKey])
 
-  // Get tweets for current era - filtered to max 3 months per item, then shuffled
+  // Get tweets for current era - filtered to max 3 months per item (except recent), then shuffled
   const currentTweets = useMemo(() => {
     const year = currentDate.getFullYear()
     const month = currentDate.getMonth()
     const era = getEra(year)
     const eraTweets = ERA_TWEETS[era] || []
+    
+    // Skip filtering for recent dates - show all content
+    if (isRecentDate(currentDate)) {
+      return shuffleArray(eraTweets)
+    }
+    
     const filtered = filterByMonthEligibility(eraTweets, month)
     return shuffleArray(filtered.length > 0 ? filtered : eraTweets.slice(0, 2))
   }, [currentDate, shuffleKey])
