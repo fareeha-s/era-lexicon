@@ -152,23 +152,23 @@ const ERA_TERMS: Record<string, { text: string; count: number }[]> = {
     { text: 'ick', count: 46 },
   ],
   
-  // 2025-2026: FRESH from web - Jan 2026 actual trends
+  // 2025-2026: FRESH from web - phrases only, no song names
   '2025-2026': [
-    { text: 'meme reset', count: 100 },
-    { text: 'big chungus', count: 98 },
-    { text: 'ugandan knuckles', count: 95 },
-    { text: '1/1/1', count: 92 },
-    { text: '6-7', count: 88 },
+    { text: 'the great meme reset', count: 100 },
+    { text: 'big chungus returns', count: 98 },
+    { text: 'do you know the way', count: 95 },
+    { text: '1/1/1 meme', count: 92 },
+    { text: '6-7 vibes', count: 88 },
     { text: 'italian brainrot', count: 85 },
     { text: 'tiktok ban', count: 82 },
-    { text: 'nyan cat', count: 78 },
-    { text: 'brain rot', count: 75 },
-    { text: 'ate', count: 72 },
-    { text: 'wicked', count: 68 },
-    { text: 'apt dance', count: 65 },
-    { text: 'squid game 2', count: 62 },
-    { text: 'slay', count: 58 },
-    { text: 'its giving', count: 55 },
+    { text: 'nyan cat comeback', count: 78 },
+    { text: 'brain rot era', count: 75 },
+    { text: 'she ate no crumbs', count: 72 },
+    { text: 'its giving', count: 68 },
+    { text: 'understood the assignment', count: 65 },
+    { text: 'very demure very mindful', count: 62 },
+    { text: 'no crumbs left', count: 58 },
+    { text: 'the serve', count: 55 },
   ],
 }
 
