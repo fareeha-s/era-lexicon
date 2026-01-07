@@ -22,12 +22,28 @@ export default function Home() {
   const loadMoreRef = useRef<HTMLDivElement | null>(null)
   const yearObserverRef = useRef<IntersectionObserver | null>(null)
 
-  // Generate timeline: current year back to 2000
+  // Generate timeline: current year back to 2000, BUT recent years get more "segments"
+  // (so they take longer to scroll through, reflecting higher meme density).
   const timeline = useMemo(() => {
-    const years: number[] = []
     const start = new Date().getFullYear()
-    for (let y = start; y >= 2000; y--) years.push(y)
-    return years
+    const entries: { year: number; segment: number; segmentsInYear: number }[] = []
+
+    const segmentsForYear = (year: number): number => {
+      // Tuning: more recent = more segments (longer scroll)
+      if (year >= 2024) return 6
+      if (year >= 2020) return 4
+      if (year >= 2016) return 3
+      if (year >= 2010) return 2
+      return 1
+    }
+
+    for (let y = start; y >= 2000; y--) {
+      const segmentsInYear = segmentsForYear(y)
+      for (let s = 0; s < segmentsInYear; s++) {
+        entries.push({ year: y, segment: s, segmentsInYear })
+      }
+    }
+    return entries
   }, [])
 
   // Shuffle utility
@@ -84,7 +100,7 @@ export default function Home() {
       (entries) => {
         if (entries[0].isIntersecting) {
           // Load 3 more sections when user scrolls near the bottom
-          setLoadedCount(prev => Math.min(prev + 2, timeline.length))
+          setLoadedCount(prev => Math.min(prev + 3, timeline.length))
         }
       },
       {
@@ -225,15 +241,19 @@ export default function Home() {
           }
 
           const cards = timeline.slice(0, loadedCount).map((year, index) => {
-            const era = getEra(year)
+            const entry = year
+            const era = getEra(entry.year)
 
             // Terms (full era pool; then pick without replacement)
             const eraTerms = getTermsForEra(era)
+            // More recent years can show a bit more per segment
+            const wordsPerSegment =
+              entry.year >= 2020 ? 16 : entry.year >= 2010 ? 14 : 12
             const pickedTerms = pickUnique(
               eraTerms,
               (t) => `word:${t.text.toLowerCase()}`,
-              12,
-              randomSeed + index * 17,
+              wordsPerSegment,
+              randomSeed + index * 17 + entry.segment * 101,
               seen.word
             )
 
@@ -242,25 +262,28 @@ export default function Home() {
             const eraSongs = ERA_SONGS[era] || []
             const eraTweets = ERA_TWEETS[era] || []
 
+            const mediaPerSegment = entry.year >= 2016 ? 3 : 2
+            const tweetsPerSegment = entry.year >= 2016 ? 3 : 2
+
             const media = pickUnique(
               eraMedia,
               (m: any) => `media:${m.type}:${m.id || m.url || m.title}`,
-              2,
-              randomSeed + 1000 + index * 19,
+              mediaPerSegment,
+              randomSeed + 1000 + index * 19 + entry.segment * 103,
               seen.media
             )
             const songs = pickUnique(
               eraSongs,
               (s: any) => `song:${s.spotifyId}`,
               2,
-              randomSeed + 2000 + index * 23,
+              randomSeed + 2000 + index * 23 + entry.segment * 107,
               seen.song
             )
             const tweets = pickUnique(
               eraTweets,
               (t: any) => `tweet:${t.handle}:${t.date}:${t.text}`,
-              2,
-              randomSeed + 3000 + index * 29,
+              tweetsPerSegment,
+              randomSeed + 3000 + index * 29 + entry.segment * 109,
               seen.tweet
             )
 
@@ -274,12 +297,21 @@ export default function Home() {
               return { text: w.text, size: fontSize }
             })
 
-            return { year, index, media, songs, tweets, wordCloudWords }
+            return {
+              year: entry.year,
+              segment: entry.segment,
+              segmentsInYear: entry.segmentsInYear,
+              index,
+              media,
+              songs,
+              tweets,
+              wordCloudWords,
+            }
           })
 
           return cards.map((card) => (
             <section
-              key={`y-${card.year}-${card.index}`}
+              key={`y-${card.year}-s${card.segment}`}
               data-year={card.year}
               ref={(el) => {
                 if (el && yearObserverRef.current) yearObserverRef.current.observe(el)
