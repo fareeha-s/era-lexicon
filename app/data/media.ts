@@ -318,33 +318,38 @@ export const ERA_MEDIA: Record<string, MediaItem[]> = {
   '2025-2026': [
     {
       type: 'youtube',
-      title: 'DeepSeek R1 Announcement',
-      id: 'eIWvFz1roJc',
+      title: 'Wicked Official Trailer',
+      id: '6COmYeLsz4c',
     },
     {
       type: 'youtube',
-      title: 'TikTok Ban Supreme Court',
-      id: '1zn5_0h-VDg',
+      title: 'Squid Game Season 2',
+      id: 'Ed5QQOX0ByU',
     },
     {
       type: 'youtube',
-      title: 'OpenAI o3 Demo',
-      id: 'SKBG1sqdyIU',
+      title: 'Moo Deng Baby Hippo',
+      id: 'R7DhGLXp_6E',
     },
     {
       type: 'youtube',
-      title: 'Apple Intelligence Ad',
-      id: 'Q_EYoV1kZWk',
+      title: 'Very Demure Very Mindful',
+      id: 'wWHjV35mh6k',
     },
     {
       type: 'youtube',
-      title: 'ChatGPT Search Launch',
-      id: 'et9HG_dZ7Cg',
+      title: 'Hawk Tuah Interview',
+      id: 'oIkhyHPMcAg',
     },
     {
       type: 'youtube',
-      title: 'Gemini 2.0 Flash',
-      id: 'kJ_K0LZfG84',
+      title: 'Skibidi Toilet',
+      id: 'WIJmzvQWeTo',
+    },
+    {
+      type: 'youtube',
+      title: 'Mr Beast Squid Game',
+      id: '0e3GPea1Tyg',
     },
   ],
 }

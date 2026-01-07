@@ -216,6 +216,18 @@ export const ERA_SONGS: Record<string, SongItem[]> = {
       spotifyId: '2plbrEY59IikOBgBGLjaoe',
       memeContext: 'Late 2024 viral hit'
     },
+    {
+      title: 'Espresso',
+      artist: 'Sabrina Carpenter',
+      spotifyId: '2qSkIjg1o9h3YT9RAgYN75',
+      memeContext: 'That\'s that me espresso'
+    },
+    {
+      title: 'Birds of a Feather',
+      artist: 'Billie Eilish',
+      spotifyId: '6dOtVTDdiauQNBQEDOtlAB',
+      memeContext: 'Viral TikTok sound'
+    },
   ],
 }
 
