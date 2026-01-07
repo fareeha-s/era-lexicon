@@ -39,6 +39,11 @@ html {
   -webkit-overflow-scrolling: touch;
 }
 
+/* Smooth section fade-in animations */
+section {
+  will-change: opacity, transform;
+}
+
 /* Glassmorphism utility */
 .glass {
   background: rgba(10, 10, 10, 0.6);

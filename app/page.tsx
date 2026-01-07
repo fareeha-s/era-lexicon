@@ -20,8 +20,10 @@ export default function Home() {
   const [loadedCount, setLoadedCount] = useState(10) // Load 10 sections initially for smoother start
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear())
   const [isMounted, setIsMounted] = useState(false)
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set())
   const loadMoreRef = useRef<HTMLDivElement | null>(null)
   const yearObserverRef = useRef<IntersectionObserver | null>(null)
+  const fadeObserverRef = useRef<IntersectionObserver | null>(null)
 
   // Set random seed on client only to avoid hydration mismatch
   useEffect(() => {
@@ -148,6 +150,36 @@ export default function Home() {
     return () => {
       if (yearObserverRef.current) {
         yearObserverRef.current.disconnect()
+      }
+    }
+  }, [])
+
+  // Set up intersection observer for smooth fade-in animations
+  useEffect(() => {
+    fadeObserverRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const sectionId = entry.target.getAttribute('data-section-id')
+            if (sectionId) {
+              setVisibleSections(prev => {
+                const newSet = new Set(prev)
+                newSet.add(sectionId)
+                return newSet
+              })
+            }
+          }
+        })
+      },
+      {
+        rootMargin: '100px 0px', // Start fading in 100px before entering viewport
+        threshold: 0.1 // Trigger when 10% visible
+      }
+    )
+
+    return () => {
+      if (fadeObserverRef.current) {
+        fadeObserverRef.current.disconnect()
       }
     }
   }, [])
@@ -321,24 +353,37 @@ export default function Home() {
             }
           })
 
-          return cards.map((card) => (
-            <section
-              key={`y-${card.year}-s${card.segment}`}
-              data-year={card.year}
-              ref={(el) => {
-                if (el && yearObserverRef.current) yearObserverRef.current.observe(el)
-              }}
-              className={`px-2 sm:px-4 md:px-8 transition-opacity duration-500 ${isMounted ? 'opacity-100' : 'opacity-0'}`}
-            >
-              <FloatingWordCloud
-                words={card.wordCloudWords}
-                media={card.media}
-                songs={card.songs}
-                tweets={card.tweets}
-                onVideoSelect={setSelectedVideo}
-              />
-            </section>
-          ))
+          return cards.map((card) => {
+            const sectionId = `y-${card.year}-s${card.segment}`
+            const isVisible = visibleSections.has(sectionId)
+            
+            return (
+              <section
+                key={sectionId}
+                data-section-id={sectionId}
+                data-year={card.year}
+                ref={(el) => {
+                  if (el) {
+                    if (yearObserverRef.current) yearObserverRef.current.observe(el)
+                    if (fadeObserverRef.current) fadeObserverRef.current.observe(el)
+                  }
+                }}
+                className={`px-2 sm:px-4 md:px-8 transition-all duration-1000 ease-out transform ${
+                  isVisible 
+                    ? 'opacity-100 translate-y-0' 
+                    : 'opacity-0 translate-y-8'
+                }`}
+              >
+                <FloatingWordCloud
+                  words={card.wordCloudWords}
+                  media={card.media}
+                  songs={card.songs}
+                  tweets={card.tweets}
+                  onVideoSelect={setSelectedVideo}
+                />
+              </section>
+            )
+          })
         })()}
         
         {/* Load more trigger */}
