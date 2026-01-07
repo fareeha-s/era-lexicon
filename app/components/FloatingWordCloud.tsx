@@ -319,10 +319,13 @@ export default function FloatingWordCloud({ words, media = [], songs = [], tweet
                   ref={(el) => {
                     if (el) wordRefs.current.set(index, el)
                   }}
-                  className="floating-word font-light tracking-wide text-white/50 hover:text-white transition-all duration-200 cursor-default select-none"
+                  className="floating-word font-light tracking-wide text-white/50 hover:text-white transition-all duration-200 cursor-pointer select-none"
                   style={{
                     fontSize: `${word.size}px`,
                     animationDelay: `${index * 0.1}s`,
+                  }}
+                  onClick={() => {
+                    window.open(`https://www.google.com/search?q=${encodeURIComponent(word.text)}`, '_blank')
                   }}
                 >
                   {word.text}
