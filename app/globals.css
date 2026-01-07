@@ -30,6 +30,13 @@ body {
   overflow-y: auto;
   min-height: 100vh;
   touch-action: pan-y;
+  scroll-behavior: smooth;
+}
+
+/* GPU acceleration for smooth scrolling */
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Glassmorphism utility */
@@ -63,26 +70,30 @@ body {
 
 @keyframes float {
   0%, 100% {
-    transform: translateY(8px);
+    transform: translate3d(0, 6px, 0);
   }
   50% {
-    transform: translateY(-12px);
+    transform: translate3d(0, -6px, 0);
   }
 }
 
 .floating-word {
-  animation: float 5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  transition: transform 0.2s ease-out;
+  animation: float 4s ease-in-out infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .floating-word:nth-child(2n) {
-  animation-duration: 5.5s;
-  animation-delay: 0.5s;
+  animation-duration: 4.5s;
 }
 
 .floating-word:nth-child(3n) {
-  animation-duration: 6s;
-  animation-delay: 0.25s;
+  animation-duration: 5s;
+}
+
+.floating-word:nth-child(5n) {
+  animation-duration: 3.5s;
 }
 
 /* Normal cursor */
