@@ -192,17 +192,18 @@ export default function FloatingWordCloud({ words, media = [], songs = [], tweet
   }
 
   return (
-    <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 py-8 md:py-12 lg:py-16 min-h-[80vh]">
+    <div className="flex flex-wrap items-start justify-center gap-x-3 gap-y-2 sm:gap-x-4 sm:gap-y-3 md:gap-x-5 md:gap-y-4 py-4 md:py-6 min-h-[50vh]">
       {shuffledContent.map((item, index) => {
         if (item.type === 'word') {
           const word = item.data as Word
           return (
             <span
               key={item.id}
-              className="floating-word font-light tracking-wide text-white/50 active:text-white md:hover:text-white transition-colors cursor-pointer select-none touch-manipulation"
+              className="floating-word font-light tracking-wide text-white/50 active:text-white md:hover:text-white transition-colors cursor-pointer select-none touch-manipulation inline-block"
               style={{
                 fontSize: `${word.size}px`,
                 animationDelay: `${(index % 10) * 0.15}s`,
+                transform: `translateY(${(index % 5) * 3}px)`, // Slight vertical offset for misalignment
               }}
               onClick={() => {
                 window.open(`https://www.google.com/search?q=${encodeURIComponent(word.text)}`, '_blank')
