@@ -187,6 +187,10 @@ const ERA_TERMS: Record<string, { text: string; count: number }[]> = {
   ],
 }
 
+export function getTermsForEra(era: string): { text: string; count: number }[] {
+  return ERA_TERMS[era] || []
+}
+
 function getEraForDate(year: number, month: number): string {
   if (year >= 2025) return '2025-2026'
   if (year >= 2022) return '2022-2024'

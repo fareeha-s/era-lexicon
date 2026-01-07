@@ -3,11 +3,10 @@
 import { useState, useMemo, useEffect, useRef } from 'react'
 import FloatingWordCloud from './components/FloatingWordCloud'
 import MediaGallery from './components/MediaGallery'
-import { format, subMonths } from 'date-fns'
 import { ERA_MEDIA } from './data/media'
 import { ERA_SONGS } from './data/songs'
 import { ERA_TWEETS } from './data/tweets'
-import { getDataForMonth } from './utils/eraData'
+import { getTermsForEra } from './utils/eraData'
 
 interface WordData {
   text: string
@@ -23,18 +22,12 @@ export default function Home() {
   const loadMoreRef = useRef<HTMLDivElement | null>(null)
   const yearObserverRef = useRef<IntersectionObserver | null>(null)
 
-  // Generate timeline: current month back to Jan 2000
+  // Generate timeline: current year back to 2000
   const timeline = useMemo(() => {
-    const dates = []
-    let date = new Date()
-    const endDate = new Date(2000, 0) // January 2000
-    
-    while (date >= endDate) {
-      dates.push(new Date(date))
-      date = subMonths(date, 1)
-    }
-    
-    return dates
+    const years: number[] = []
+    const start = new Date().getFullYear()
+    for (let y = start; y >= 2000; y--) years.push(y)
+    return years
   }, [])
 
   // Shuffle utility
@@ -63,31 +56,25 @@ export default function Home() {
     return '2000-2003'
   }
 
-  // Get a UNIQUE slice of content for each month
-  // Key insight: use absolute month index to rotate through content
-  // So month 0 gets items 0-2, month 1 gets items 3-5, etc.
-  const getContentSlice = <T,>(
+  // Hard rule: NO repeats across the entire scroll session.
+  // Deterministic "pick without replacement" helper.
+  const pickUnique = <T,>(
     items: T[],
-    absoluteMonthIndex: number,
-    itemsPerMonth: number = 3
+    getId: (item: T) => string,
+    want: number,
+    seed: number,
+    seen: Set<string>
   ): T[] => {
-    if (items.length === 0) return []
-    
-    // Shuffle the array first with a consistent seed for this session
-    const shuffled = shuffleArray(items, randomSeed)
-    
-    // Calculate the starting position based on month index
-    // Use modulo to wrap around when we run out of content
-    const totalItems = shuffled.length
-    const startIdx = (absoluteMonthIndex * itemsPerMonth) % totalItems
-    
-    // Get items with wrap-around
+    if (!items.length || want <= 0) return []
+    const shuffled = shuffleArray(items, seed)
     const result: T[] = []
-    for (let i = 0; i < Math.min(itemsPerMonth, totalItems); i++) {
-      const idx = (startIdx + i) % totalItems
-      result.push(shuffled[idx])
+    for (let i = 0; i < shuffled.length && result.length < want; i++) {
+      const id = getId(shuffled[i])
+      if (!id) continue
+      if (seen.has(id)) continue
+      seen.add(id)
+      result.push(shuffled[i])
     }
-    
     return result
   }
 
@@ -97,7 +84,7 @@ export default function Home() {
       (entries) => {
         if (entries[0].isIntersecting) {
           // Load 3 more sections when user scrolls near the bottom
-          setLoadedCount(prev => Math.min(prev + 3, timeline.length))
+          setLoadedCount(prev => Math.min(prev + 2, timeline.length))
         }
       },
       {
@@ -119,7 +106,7 @@ export default function Home() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const year = parseInt(entry.target.getAttribute('data-year') || '2026')
+            const year = parseInt(entry.target.getAttribute('data-year') || String(new Date().getFullYear()))
             setCurrentYear(year)
           }
         })
@@ -228,69 +215,87 @@ export default function Home() {
 
       {/* Scrollable Sections - Only render what's needed, with right padding for year dial */}
       <div className="pt-20 sm:pt-24 md:pt-32 pb-32 max-w-7xl mx-auto pr-12 sm:pr-16 md:pr-20">
-        {timeline.slice(0, loadedCount).map((date, index) => {
-          const year = date.getFullYear()
-          const month = date.getMonth()
-          const era = getEra(year)
-          
-          // Get data for this month
-          const result = getDataForMonth(year, month + 1)
-          const words = result.words || []
-          
-          // Get media, songs, tweets
-          const eraMedia = ERA_MEDIA[era] || []
-          const eraSongs = ERA_SONGS[era] || []
-          const eraTweets = ERA_TWEETS[era] || []
-          
-          // Get DIFFERENT slices for each month
-          const media = getContentSlice(eraMedia, index, 2)
-          const songs = getContentSlice(eraSongs, index + 100, 2)
-          const tweets = getContentSlice(eraTweets, index + 200, 2)
-          
-          // Rotate words - take different subset each month
-          const shuffledWords = shuffleArray(words, randomSeed)
-          const wordsPerMonth = Math.max(8, Math.ceil(words.length / 3))
-          const wordStartIdx = (index * 3) % Math.max(1, words.length)
-          const selectedWords: typeof words = []
-          for (let i = 0; i < Math.min(wordsPerMonth, words.length); i++) {
-            const idx = (wordStartIdx + i) % words.length
-            selectedWords.push(shuffledWords[idx])
+        {(() => {
+          // Build year cards sequentially with global no-repeat guarantees.
+          const seen = {
+            word: new Set<string>(),
+            media: new Set<string>(),
+            song: new Set<string>(),
+            tweet: new Set<string>(),
           }
-          
-          // Transform words for display
-          const wordCloudWords = selectedWords.map(w => {
-            const counts = selectedWords.map(word => word.count)
-            const minCount = Math.min(...counts)
-            const maxCount = Math.max(...counts)
-            const normalizedSize = maxCount > minCount
-              ? ((w.count - minCount) / (maxCount - minCount))
-              : 0.5
-            const fontSize = 16 + (normalizedSize * 40)
-            
-            return { text: w.text, size: fontSize }
+
+          const cards = timeline.slice(0, loadedCount).map((year, index) => {
+            const era = getEra(year)
+
+            // Terms (full era pool; then pick without replacement)
+            const eraTerms = getTermsForEra(era)
+            const pickedTerms = pickUnique(
+              eraTerms,
+              (t) => `word:${t.text.toLowerCase()}`,
+              12,
+              randomSeed + index * 17,
+              seen.word
+            )
+
+            // Media / songs / tweets (also without replacement globally)
+            const eraMedia = ERA_MEDIA[era] || []
+            const eraSongs = ERA_SONGS[era] || []
+            const eraTweets = ERA_TWEETS[era] || []
+
+            const media = pickUnique(
+              eraMedia,
+              (m: any) => `media:${m.type}:${m.id || m.url || m.title}`,
+              2,
+              randomSeed + 1000 + index * 19,
+              seen.media
+            )
+            const songs = pickUnique(
+              eraSongs,
+              (s: any) => `song:${s.spotifyId}`,
+              2,
+              randomSeed + 2000 + index * 23,
+              seen.song
+            )
+            const tweets = pickUnique(
+              eraTweets,
+              (t: any) => `tweet:${t.handle}:${t.date}:${t.text}`,
+              2,
+              randomSeed + 3000 + index * 29,
+              seen.tweet
+            )
+
+            // Font sizes from counts (stable per picked set)
+            const counts = pickedTerms.map((t) => t.count)
+            const minCount = counts.length ? Math.min(...counts) : 1
+            const maxCount = counts.length ? Math.max(...counts) : 1
+            const wordCloudWords = pickedTerms.map((w) => {
+              const normalizedSize = maxCount > minCount ? (w.count - minCount) / (maxCount - minCount) : 0.5
+              const fontSize = 16 + normalizedSize * 40
+              return { text: w.text, size: fontSize }
+            })
+
+            return { year, index, media, songs, tweets, wordCloudWords }
           })
 
-          return (
+          return cards.map((card) => (
             <section
-              key={`${year}-${month}-${index}`}
-              data-year={year}
+              key={`y-${card.year}-${card.index}`}
+              data-year={card.year}
               ref={(el) => {
-                if (el && yearObserverRef.current) {
-                  yearObserverRef.current.observe(el)
-                }
+                if (el && yearObserverRef.current) yearObserverRef.current.observe(el)
               }}
               className="px-2 sm:px-4 md:px-8"
             >
-              <FloatingWordCloud 
-                words={wordCloudWords} 
-                media={media}
-                songs={songs}
-                tweets={tweets}
+              <FloatingWordCloud
+                words={card.wordCloudWords}
+                media={card.media}
+                songs={card.songs}
+                tweets={card.tweets}
                 onVideoSelect={setSelectedVideo}
               />
             </section>
-          )
-        })}
+          ))
+        })()}
         
         {/* Load more trigger */}
         {loadedCount < timeline.length && (
