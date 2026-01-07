@@ -71,18 +71,18 @@ body {
 }
 
 .floating-word {
-  animation: float 6s ease-in-out infinite;
+  animation: float 3.5s ease-in-out infinite;
   transition: transform 0.2s ease-out;
 }
 
 .floating-word:nth-child(2n) {
-  animation-duration: 7s;
-  animation-delay: 1s;
+  animation-duration: 4s;
+  animation-delay: 0.5s;
 }
 
 .floating-word:nth-child(3n) {
-  animation-duration: 8s;
-  animation-delay: 0.5s;
+  animation-duration: 4.5s;
+  animation-delay: 0.25s;
 }
 
 /* Normal cursor */
