@@ -180,7 +180,7 @@ export default function Home() {
     }
   }, [isDragging, handleDialInteraction])
 
-  // Build all year data with 3-max repeat rule
+  // Build all year data with NO REPEATS - each item appears only once
   const yearData = useMemo(() => {
     const wordUsage = new Map<string, number>()
     const mediaUsage = new Map<string, number>()
@@ -204,7 +204,7 @@ export default function Home() {
         wordsPerYear,
         randomSeed + index * 17,
         wordUsage,
-        3
+        1 // NO REPEATS
       )
 
       const media = pickWithLimit(
@@ -213,7 +213,7 @@ export default function Home() {
         mediaPerYear,
         randomSeed + 1000 + index * 19,
         mediaUsage,
-        3
+        1 // NO REPEATS
       )
 
       const songs = pickWithLimit(
@@ -222,7 +222,7 @@ export default function Home() {
         3,
         randomSeed + 2000 + index * 23,
         songUsage,
-        3
+        1 // NO REPEATS
       )
 
       const tweets = pickWithLimit(
@@ -231,7 +231,7 @@ export default function Home() {
         tweetsPerYear,
         randomSeed + 3000 + index * 29,
         tweetUsage,
-        3
+        1 // NO REPEATS
       )
 
       // Calculate word sizes
