@@ -152,23 +152,23 @@ const ERA_TERMS: Record<string, { text: string; count: number }[]> = {
     { text: 'ick', count: 46 },
   ],
   
-  // 2025-2026: Current era - FRESH Jan 2026
+  // 2025-2026: Current era - only Nov 2025-Jan 2026 fresh content
   '2025-2026': [
     { text: 'tiktok ban', count: 100 },
     { text: 'deepseek', count: 98 },
-    { text: 'luigi mangione', count: 95 },
+    { text: 'luigi', count: 95 },
     { text: 'o3', count: 92 },
-    { text: 'brain rot', count: 88 },
-    { text: 'agentic', count: 85 },
-    { text: 'grok', count: 82 },
-    { text: 'apple intelligence', count: 78 },
-    { text: 'gemini', count: 75 },
-    { text: 'bluesky', count: 72 },
-    { text: 'rotmaxxing', count: 68 },
-    { text: 'looksmaxxing', count: 65 },
-    { text: 'sora', count: 60 },
-    { text: 'vibe coding', count: 55 },
-    { text: 'agi', count: 50 },
+    { text: 'bluesky', count: 88 },
+    { text: 'sora', count: 85 },
+    { text: 'gemini 2', count: 82 },
+    { text: 'notebooklm', count: 78 },
+    { text: 'wrapped', count: 75 },
+    { text: 'wicked', count: 72 },
+    { text: 'squid game 2', count: 68 },
+    { text: 'sydney sweeney', count: 65 },
+    { text: 'timothee', count: 60 },
+    { text: 'moana 2', count: 55 },
+    { text: 'openai', count: 50 },
   ],
 }
 

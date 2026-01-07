@@ -245,7 +245,7 @@ export default function Home() {
             
             <div className="text-right">
               <p className="text-xs md:text-sm text-white/70 tracking-wide font-light mb-1">
-                {format(currentDate, 'MMMM yyyy')}
+                {format(currentDate, 'yyyy')}
               </p>
             </div>
           </div>

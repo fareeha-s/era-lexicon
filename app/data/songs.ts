@@ -205,16 +205,16 @@ export const ERA_SONGS: Record<string, SongItem[]> = {
       memeContext: 'Viral drinking game song'
     },
     {
-      title: 'Birds of a Feather',
-      artist: 'Billie Eilish',
-      spotifyId: '6dOtVTDdiauQNBQEDOtlAB',
-      memeContext: 'HIT ME HARD AND SOFT viral'
+      title: 'Defying Gravity',
+      artist: 'Cynthia Erivo, Ariana Grande',
+      spotifyId: '3V7UhEDGqIcxnP1SoUHLht',
+      memeContext: 'Wicked movie soundtrack'
     },
     {
-      title: 'Million Dollar Baby',
-      artist: 'Tommy Richman',
-      spotifyId: '5G2f63n7IPVPPjfNIGih7Q',
-      memeContext: 'I\'m a million dollar baby'
+      title: 'Die With A Smile',
+      artist: 'Lady Gaga, Bruno Mars',
+      spotifyId: '2plbrEY59IikOBgBGLjaoe',
+      memeContext: 'Late 2024 viral hit'
     },
   ],
 }
