@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState, useEffect, useMemo } from 'react'
 import { toPng } from 'html-to-image'
 
 interface Word {
@@ -30,6 +30,22 @@ interface FloatingWordCloudProps {
   tweets?: Tweet[]
   onVideoSelect?: (id: string) => void
 }
+
+// Fisher-Yates shuffle
+function shuffle<T>(array: T[]): T[] {
+  const shuffled = [...array]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  return shuffled
+}
+
+type ContentItem = 
+  | { type: 'word'; data: Word; id: string }
+  | { type: 'video'; data: any; id: string }
+  | { type: 'song'; data: Song; id: string }
+  | { type: 'tweet'; data: Tweet; id: string }
 
 // Video thumbnail - ONLY show if available
 function VideoThumbnail({ item, onSelect }: { item: any, onSelect?: (id: string) => void }) {
@@ -152,6 +168,34 @@ export default function FloatingWordCloud({ words, media = [], songs = [], tweet
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const wordRefs = useRef<Map<number, HTMLSpanElement>>(new Map())
 
+  // Create shuffled content array - recalculates on every mount (triggered by key prop change)
+  const shuffledContent = useMemo(() => {
+    const content: ContentItem[] = []
+    
+    // Add all words
+    words.forEach((word, i) => {
+      content.push({ type: 'word', data: word, id: `word-${i}` })
+    })
+    
+    // Add all videos
+    media.forEach((item, i) => {
+      content.push({ type: 'video', data: item, id: `video-${i}` })
+    })
+    
+    // Add all songs
+    songs.forEach((song, i) => {
+      content.push({ type: 'song', data: song, id: `song-${i}` })
+    })
+    
+    // Add all tweets
+    tweets.forEach((tweet, i) => {
+      content.push({ type: 'tweet', data: tweet, id: `tweet-${i}` })
+    })
+    
+    // Shuffle everything together
+    return shuffle(content)
+  }, [words, media, songs, tweets])
+
   // Track mouse position
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -226,9 +270,6 @@ export default function FloatingWordCloud({ words, media = [], songs = [], tweet
     return null
   }
 
-  // Sort words by size
-  const sortedWords = [...words].sort((a, b) => b.size - a.size)
-
   return (
     <div className="relative w-full h-full">
       <button
@@ -251,55 +292,44 @@ export default function FloatingWordCloud({ words, media = [], songs = [], tweet
                style={{ animationDuration: '10s', animationDelay: '2s' }} />
         </div>
         
-        {/* Words and Media interspersed */}
+        {/* Shuffled content - words, videos, songs, tweets all mixed */}
         <div className="relative z-10 flex flex-wrap items-center justify-center gap-3 md:gap-5 p-4 md:p-8 h-full content-center">
-          {sortedWords.map((word, index) => {
-            // Use the size directly - it's already calculated based on importance
-            const baseFontSize = word.size
-            
-            // Insert media after every 4 words
-            const mediaIndex = Math.floor(index / 4)
-            const shouldInsertMedia = index > 0 && index % 4 === 0 && media[mediaIndex]
-            const mediaItem = media[mediaIndex]
-            
-            // Insert song after every 6 words
-            const songIndex = Math.floor(index / 6)
-            const shouldInsertSong = index > 0 && index % 6 === 0 && songs[songIndex]
-            const songItem = songs[songIndex]
-            
-            // Insert tweet after every 5 words
-            const tweetIndex = Math.floor(index / 5)
-            const shouldInsertTweet = index > 0 && index % 5 === 0 && tweets[tweetIndex]
-            const tweetItem = tweets[tweetIndex]
-            
-            return (
-              <span key={`item-${index}`} className="contents">
-                {shouldInsertMedia && mediaItem && (
-                  <VideoThumbnail 
-                    item={mediaItem} 
-                    onSelect={onVideoSelect} 
-                  />
-                )}
-                {shouldInsertSong && songItem && (
-                  <SongCard song={songItem} />
-                )}
-                {shouldInsertTweet && tweetItem && (
-                  <TweetCard tweet={tweetItem} />
-                )}
+          {shuffledContent.map((item, index) => {
+            if (item.type === 'word') {
+              const word = item.data as Word
+              return (
                 <span
+                  key={item.id}
                   ref={(el) => {
                     if (el) wordRefs.current.set(index, el)
                   }}
                   className="floating-word font-light tracking-wide text-white/50 hover:text-white transition-all duration-200 cursor-default select-none"
                   style={{
-                    fontSize: `${baseFontSize}px`,
+                    fontSize: `${word.size}px`,
                     animationDelay: `${index * 0.1}s`,
                   }}
                 >
                   {word.text}
                 </span>
-              </span>
-            )
+              )
+            } else if (item.type === 'video') {
+              return (
+                <VideoThumbnail 
+                  key={item.id}
+                  item={item.data} 
+                  onSelect={onVideoSelect} 
+                />
+              )
+            } else if (item.type === 'song') {
+              return (
+                <SongCard key={item.id} song={item.data as Song} />
+              )
+            } else if (item.type === 'tweet') {
+              return (
+                <TweetCard key={item.id} tweet={item.data as Tweet} />
+              )
+            }
+            return null
           })}
         </div>
       </div>
