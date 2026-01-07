@@ -8,6 +8,54 @@ export interface TweetItem {
 }
 
 export const ERA_TWEETS: Record<string, TweetItem[]> = {
+  '2000-2003': [
+    {
+      text: 'All your base are belong to us',
+      author: 'Zero Wing',
+      handle: '@zerowing',
+      date: '2000',
+      context: 'Translation fail'
+    },
+    {
+      text: 'You can dance if you want to',
+      author: 'Hamster Dance',
+      handle: '@hamsterdance',
+      date: '1998-2003',
+      context: 'Early viral site'
+    },
+    {
+      text: 'Strong Bad Email: DELETED!',
+      author: 'Homestar Runner',
+      handle: '@strongbad',
+      date: '2001',
+      context: 'Flash era'
+    },
+  ],
+  
+  '2004-2006': [
+    {
+      text: 'just setting up my twttr',
+      author: 'Jack Dorsey',
+      handle: '@jack',
+      date: 'Mar 21, 2006',
+      context: 'First tweet ever'
+    },
+    {
+      text: 'LEEEEEEEROOOOY JENKINS',
+      author: 'Leeroy Jenkins',
+      handle: '@leeroy',
+      date: '2005',
+      context: 'WoW legend'
+    },
+    {
+      text: 'O RLY? YA RLY. NO WAI!',
+      author: '4chan',
+      handle: '@4chan',
+      date: '2005',
+      context: 'Owl meme'
+    },
+  ],
+  
   '2007-2009': [
     {
       text: 'just setting up my twttr',

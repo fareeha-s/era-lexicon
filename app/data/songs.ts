@@ -6,6 +6,48 @@ export interface SongItem {
 }
 
 export const ERA_SONGS: Record<string, SongItem[]> = {
+  '2000-2003': [
+    {
+      title: 'Dragostea Din Tei',
+      artist: 'O-Zone',
+      spotifyId: '02l43tcNi3hkXKCN0Ovvdj',
+      memeContext: 'Numa Numa (later)'
+    },
+    {
+      title: 'Sandstorm',
+      artist: 'Darude',
+      spotifyId: '6Sy9BUbgFse0n0LPA5lwy5',
+      memeContext: 'Song name meme'
+    },
+    {
+      title: 'Hey Ya!',
+      artist: 'OutKast',
+      spotifyId: '4NhtEN2OVFqb9vEUqLAWGI',
+      memeContext: 'Shake it'
+    },
+  ],
+  
+  '2004-2006': [
+    {
+      title: 'Dragostea Din Tei',
+      artist: 'O-Zone',
+      spotifyId: '02l43tcNi3hkXKCN0Ovvdj',
+      memeContext: 'Numa Numa'
+    },
+    {
+      title: 'Chocolate Rain',
+      artist: 'Tay Zonday',
+      spotifyId: '1p1Z3ayzGhkdKlKPJPzJFS',
+      memeContext: 'I move away from the mic'
+    },
+    {
+      title: 'Crazy Frog',
+      artist: 'Axel F',
+      spotifyId: '6NzItAXwD5LtYgf3PbFbRJ',
+      memeContext: 'Annoying ringtone'
+    },
+  ],
+  
   '2007-2009': [
     {
       title: 'Never Gonna Give You Up',

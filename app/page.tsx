@@ -38,11 +38,11 @@ export default function Home() {
   const [showSources, setShowSources] = useState(false)
   const [shuffleKey, setShuffleKey] = useState(0)
 
-  // Generate timeline: current month back to Jan 2007
+  // Generate timeline: current month back to Jan 2000
   const timeline = useMemo(() => {
     const dates = []
     let date = new Date()
-    const endDate = new Date(2007, 0) // January 2007
+    const endDate = new Date(2000, 0) // January 2000
     
     while (date >= endDate) {
       dates.push(new Date(date))
@@ -176,6 +176,8 @@ export default function Home() {
     if (year < 2016) era = '2013-2015'
     if (year < 2013) era = '2010-2012'
     if (year < 2010) era = '2007-2009'
+    if (year < 2007) era = '2004-2006'
+    if (year < 2004) era = '2000-2003'
     return shuffleArray(ERA_MEDIA[era] || [])
   }, [currentDate, shuffleKey])
 
@@ -189,6 +191,8 @@ export default function Home() {
     if (year < 2016) era = '2013-2015'
     if (year < 2013) era = '2010-2012'
     if (year < 2010) era = '2007-2009'
+    if (year < 2007) era = '2004-2006'
+    if (year < 2004) era = '2000-2003'
     return shuffleArray(ERA_SONGS[era] || [])
   }, [currentDate, shuffleKey])
 
@@ -202,6 +206,8 @@ export default function Home() {
     if (year < 2016) era = '2013-2015'
     if (year < 2013) era = '2010-2012'
     if (year < 2010) era = '2007-2009'
+    if (year < 2007) era = '2004-2006'
+    if (year < 2004) era = '2000-2003'
     return shuffleArray(ERA_TWEETS[era] || [])
   }, [currentDate, shuffleKey])
 

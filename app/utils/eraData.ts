@@ -1,5 +1,43 @@
 // Era-specific culturally relevant terms
 const ERA_TERMS: Record<string, { text: string; count: number }[]> = {
+  // 2000-2003: Early internet, forums, Flash
+  '2000-2003': [
+    { text: 'all your base', count: 92 },
+    { text: 'hamster dance', count: 87 },
+    { text: 'newgrounds', count: 82 },
+    { text: 'flash', count: 78 },
+    { text: 'ebaumsworld', count: 73 },
+    { text: 'homestar runner', count: 68 },
+    { text: 'dancing baby', count: 63 },
+    { text: 'badger badger', count: 58 },
+    { text: 'napster', count: 53 },
+    { text: 'aim', count: 48 },
+    { text: 'livejournal', count: 43 },
+    { text: 'something awful', count: 38 },
+    { text: 'ytmnd', count: 33 },
+    { text: 'strong bad', count: 28 },
+    { text: 'geocities', count: 23 },
+  ],
+  
+  // 2004-2006: YouTube, early social, forums
+  '2004-2006': [
+    { text: 'youtube', count: 95 },
+    { text: 'myspace', count: 90 },
+    { text: '4chan', count: 85 },
+    { text: 'limewire', count: 80 },
+    { text: 'numa numa', count: 75 },
+    { text: 'leeroy jenkins', count: 70 },
+    { text: 'chocolate rain', count: 65 },
+    { text: 'lonelygirl15', count: 60 },
+    { text: 'boxxy', count: 55 },
+    { text: 'snakes on a plane', count: 50 },
+    { text: 'chuck norris', count: 45 },
+    { text: 'lolcats', count: 40 },
+    { text: 'i can has', count: 35 },
+    { text: 'o rly', count: 30 },
+    { text: 'an hero', count: 25 },
+  ],
+  
   // 2007-2009: Early social media, recession
   '2007-2009': [
     { text: 'iphone', count: 95 },
@@ -141,7 +179,9 @@ function getEraForDate(year: number, month: number): string {
   if (year >= 2016) return '2016-2018'
   if (year >= 2013) return '2013-2015'
   if (year >= 2010) return '2010-2012'
-  return '2007-2009'
+  if (year >= 2007) return '2007-2009'
+  if (year >= 2004) return '2004-2006'
+  return '2000-2003'
 }
 
 // Generate unique seed based on year and month
