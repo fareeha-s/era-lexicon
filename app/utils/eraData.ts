@@ -5,25 +5,25 @@ const ERA_TERMS: Record<string, { text: string; count: number }[]> = {
     { text: 'iphone', count: 95 },
     { text: 'facebook', count: 88 },
     { text: 'twitter', count: 82 },
-    { text: 'obama', count: 78 },
+    { text: 'myspace', count: 78 },
     { text: 'recession', count: 71 },
     { text: 'fail', count: 65 },
     { text: 'epic', count: 59 },
     { text: 'pwned', count: 54 },
     { text: 'lolcats', count: 48 },
     { text: 'rickroll', count: 43 },
-    { text: 'subprime', count: 38 },
-    { text: 'bailout', count: 35 },
-    { text: 'change', count: 32 },
+    { text: 'digg', count: 38 },
+    { text: 'reddit', count: 35 },
+    { text: 'tumblr', count: 32 },
     { text: 'viral', count: 29 },
     { text: 'youtube', count: 26 },
   ],
   
-  // 2010-2012: Instagram, Arab Spring, memes mature
+  // 2010-2012: Instagram, social media boom
   '2010-2012': [
     { text: 'instagram', count: 92 },
     { text: 'hashtag', count: 87 },
-    { text: 'occupy', count: 79 },
+    { text: 'rage comic', count: 79 },
     { text: 'swag', count: 73 },
     { text: 'yolo', count: 68 },
     { text: 'selfie', count: 64 },
@@ -32,8 +32,8 @@ const ERA_TERMS: Record<string, { text: string; count: number }[]> = {
     { text: 'doge', count: 47 },
     { text: 'pinterest', count: 42 },
     { text: 'snapchat', count: 38 },
-    { text: 'arab spring', count: 34 },
-    { text: 'kony', count: 29 },
+    { text: '9gag', count: 34 },
+    { text: 'derp', count: 29 },
     { text: 'hipster', count: 25 },
     { text: 'troll', count: 22 },
   ],
@@ -57,9 +57,9 @@ const ERA_TERMS: Record<string, { text: string; count: number }[]> = {
     { text: 'yc', count: 20 },
   ],
   
-  // 2016-2018: Trump, Brexit, TikTok emerges
+  // 2016-2018: Crypto boom, TikTok emerges
   '2016-2018': [
-    { text: 'trump', count: 98 },
+    { text: 'ethereum', count: 98 },
     { text: 'ico', count: 91 },
     { text: 'blockchain', count: 85 },
     { text: 'metoo', count: 79 },

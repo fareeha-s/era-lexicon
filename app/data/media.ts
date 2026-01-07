@@ -181,8 +181,8 @@ export const ERA_MEDIA: Record<string, MediaItem[]> = {
   '2019-2021': [
     {
       type: 'youtube',
-      title: 'Bernie Sanders Mittens Meme',
-      id: 'KgbBP9Em00A',
+      title: 'Among Us But Animated',
+      id: 'grd-K33tOSM',
     },
     {
       type: 'youtube',

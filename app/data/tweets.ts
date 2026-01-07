@@ -17,28 +17,28 @@ export const ERA_TWEETS: Record<string, TweetItem[]> = {
       context: 'First tweet ever'
     },
     {
-      text: 'Yeezy taught me',
-      author: 'Kanye West',
-      handle: '@kanyewest',
-      date: '2009',
-      context: 'Early Kanye Twitter'
+      text: 'fail whale',
+      author: 'Twitter Users',
+      handle: '@twitter',
+      date: '2008',
+      context: 'Twitter downtime era'
     },
   ],
   
   '2010-2012': [
     {
-      text: 'There are 47% of the people who will vote for the president no matter what',
-      author: 'Mitt Romney',
-      handle: '@MittRomney',
-      date: 'Sep 2012',
-      context: '47% controversy'
+      text: 'The iPhone is not going to get any significant market share',
+      author: 'Steve Ballmer',
+      handle: '@steveb',
+      date: '2007',
+      context: 'Famous prediction fail'
     },
     {
-      text: 'I made a new word - Belieber!',
-      author: 'Justin Bieber',
-      handle: '@justinbieber',
-      date: '2010',
-      context: 'Bieber fever era'
+      text: 'We\'re making a dent in the universe',
+      author: 'Steve Jobs',
+      handle: '@stevejobs',
+      date: '2011',
+      context: 'Apple era'
     },
   ],
   
@@ -68,11 +68,11 @@ export const ERA_TWEETS: Record<string, TweetItem[]> = {
   
   '2016-2018': [
     {
-      text: 'Despite the constant negative press covfefe',
-      author: 'Donald Trump',
-      handle: '@realDonaldTrump',
-      date: 'May 31, 2017',
-      context: 'Covfefe typo'
+      text: 'In retrospect, it was inevitable',
+      author: 'Crypto Twitter',
+      handle: '@CT_inevitable',
+      date: '2017',
+      context: 'Bitcoin rise'
     },
     {
       text: 'Bitcoin is rat poison squared',
@@ -106,11 +106,11 @@ export const ERA_TWEETS: Record<string, TweetItem[]> = {
       context: 'Good morning ritual'
     },
     {
-      text: 'i am once again asking for your financial support',
-      author: 'Bernie Sanders',
-      handle: '@BernieSanders',
-      date: 'Jan 2020',
-      context: 'Bernie meme'
+      text: 'probably nothing',
+      author: 'Crypto Twitter',
+      handle: '@CT',
+      date: '2020-2021',
+      context: 'NFT era sarcasm'
     },
   ],
   
@@ -154,11 +154,11 @@ export const ERA_TWEETS: Record<string, TweetItem[]> = {
       context: 'Optimism posting'
     },
     {
-      text: 'kamala IS brat',
+      text: 'brat summer is never over',
       author: 'Charli XCX',
       handle: '@charli_xcx',
-      date: 'Jul 2024',
-      context: 'Kamala brat tweet'
+      date: 'Jun 2024',
+      context: 'Brat album era'
     },
   ],
 }
