@@ -48,6 +48,7 @@ type ContentItem =
   | { type: 'tweet'; data: Tweet; id: string }
 
 // GIF/Image thumbnail for early internet era - memoized - HARD RULE: Only show if image loads
+// UNIFORM SIZE: 160px x 160px on desktop, 120px x 120px on mobile
 const GifImageThumbnail = memo(function GifImageThumbnail({ item }: { item: any }) {
   const [isLoaded, setIsLoaded] = useState(false)
   const [hasError, setHasError] = useState(false)
@@ -57,7 +58,7 @@ const GifImageThumbnail = memo(function GifImageThumbnail({ item }: { item: any 
 
   return (
     <div
-      className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-lg overflow-hidden border border-white/20 active:border-white/40 md:hover:border-white/40 transition-all active:scale-95 md:hover:scale-105 flex-shrink-0 will-change-transform touch-manipulation"
+      className="relative w-[120px] h-[120px] md:w-[160px] md:h-[160px] rounded-lg overflow-hidden border border-white/20 active:border-white/40 md:hover:border-white/40 transition-all active:scale-95 md:hover:scale-105 flex-shrink-0 will-change-transform touch-manipulation"
       title={item.title}
       style={{ opacity: isLoaded ? 1 : 0 }}
     >
@@ -65,7 +66,7 @@ const GifImageThumbnail = memo(function GifImageThumbnail({ item }: { item: any 
         src={item.url}
         alt={item.title}
         fill
-        sizes="(max-width: 640px) 96px, (max-width: 768px) 128px, (max-width: 1024px) 160px, 192px"
+        sizes="(max-width: 768px) 120px, 160px"
         className="object-cover opacity-80"
         onLoad={() => setIsLoaded(true)}
         onError={() => setHasError(true)}
@@ -75,6 +76,7 @@ const GifImageThumbnail = memo(function GifImageThumbnail({ item }: { item: any 
 })
 
 // Video thumbnail - memoized and optimized - HARD RULE: Only show if video is actually available
+// UNIFORM SIZE: 240px x 135px on desktop (16:9), 180px x 101px on mobile
 const VideoThumbnail = memo(function VideoThumbnail({ item, onSelect }: { item: any, onSelect?: (id: string) => void }) {
   const [isAvailable, setIsAvailable] = useState(false)
   
@@ -98,7 +100,7 @@ const VideoThumbnail = memo(function VideoThumbnail({ item, onSelect }: { item: 
 
   return (
     <button
-      className="group relative w-32 h-20 sm:w-40 sm:h-24 md:w-56 md:h-32 lg:w-64 lg:h-40 rounded-lg overflow-hidden border border-white/20 active:border-white/40 md:hover:border-white/40 transition-all active:scale-95 md:hover:scale-105 flex-shrink-0 will-change-transform touch-manipulation"
+      className="group relative w-[180px] h-[101px] md:w-[240px] md:h-[135px] rounded-lg overflow-hidden border border-white/20 active:border-white/40 md:hover:border-white/40 transition-all active:scale-95 md:hover:scale-105 flex-shrink-0 will-change-transform touch-manipulation"
       onClick={() => onSelect?.(item.id)}
       title={item.title}
     >
@@ -106,12 +108,12 @@ const VideoThumbnail = memo(function VideoThumbnail({ item, onSelect }: { item: 
         src={`https://img.youtube.com/vi/${item.id}/mqdefault.jpg`}
         alt={item.title}
         fill
-        sizes="(max-width: 640px) 128px, (max-width: 768px) 160px, (max-width: 1024px) 224px, 256px"
+        sizes="(max-width: 768px) 180px, 240px"
         className="object-cover opacity-70"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <svg className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white/80" fill="currentColor" viewBox="0 0 24 24">
+        <svg className="w-8 h-8 md:w-10 md:h-10 text-white/80" fill="currentColor" viewBox="0 0 24 24">
           <path d="M8 5v14l11-7z"/>
         </svg>
       </div>
@@ -120,28 +122,29 @@ const VideoThumbnail = memo(function VideoThumbnail({ item, onSelect }: { item: 
 })
 
 // Song card component - memoized
+// UNIFORM SIZE: 200px width on desktop, 160px on mobile, auto height based on content
 const SongCard = memo(function SongCard({ song }: { song: Song }) {
   return (
     <a
       href={`https://open.spotify.com/track/${song.spotifyId}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block w-40 sm:w-48 md:w-56 lg:w-64 bg-white/5 active:bg-white/10 md:hover:bg-white/10 border border-white/10 active:border-white/30 md:hover:border-white/30 rounded-lg p-3 md:p-4 lg:p-5 transition-all active:scale-95 md:hover:scale-105 flex-shrink-0 will-change-transform touch-manipulation min-h-[60px]"
+      className="group block w-[160px] md:w-[200px] bg-white/5 active:bg-white/10 md:hover:bg-white/10 border border-white/10 active:border-white/30 md:hover:border-white/30 rounded-lg p-3 md:p-4 transition-all active:scale-95 md:hover:scale-105 flex-shrink-0 will-change-transform touch-manipulation"
       title={`${song.title} - ${song.artist}`}
     >
-      <div className="flex items-start gap-2 sm:gap-3">
+      <div className="flex items-start gap-2 md:gap-3">
         <svg 
-          className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-green-500 flex-shrink-0 mt-0.5" 
+          className="w-6 h-6 md:w-7 md:h-7 text-green-500 flex-shrink-0 mt-0.5" 
           fill="currentColor" 
           viewBox="0 0 24 24"
         >
           <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
         </svg>
         <div className="flex-1 min-w-0">
-          <p className="text-xs sm:text-sm md:text-base text-white/80 font-medium truncate leading-tight">
+          <p className="text-xs md:text-sm text-white/80 font-medium truncate leading-tight">
             {song.title}
           </p>
-          <p className="text-[10px] sm:text-xs md:text-sm text-white/40 truncate mt-1">
+          <p className="text-[10px] md:text-xs text-white/40 truncate mt-1">
             {song.artist}
           </p>
         </div>
@@ -151,23 +154,24 @@ const SongCard = memo(function SongCard({ song }: { song: Song }) {
 })
 
 // Tweet card component - memoized
+// UNIFORM SIZE: 220px width on desktop, 180px on mobile, auto height based on content
 const TweetCard = memo(function TweetCard({ tweet }: { tweet: Tweet }) {
   return (
-    <div className="block w-48 sm:w-56 md:w-64 lg:w-72 bg-white/5 border border-white/10 rounded-lg p-3 md:p-4 lg:p-5 flex-shrink-0 touch-manipulation">
-      <div className="space-y-2 sm:space-y-3">
-        <div className="flex items-start gap-2 sm:gap-3">
-          <svg className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24">
+    <div className="block w-[180px] md:w-[220px] bg-white/5 border border-white/10 rounded-lg p-3 md:p-4 flex-shrink-0 touch-manipulation">
+      <div className="space-y-2">
+        <div className="flex items-start gap-2">
+          <svg className="w-5 h-5 md:w-6 md:h-6 text-blue-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24">
             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
           </svg>
           <div className="flex-1 min-w-0">
-            <p className="text-[11px] sm:text-xs md:text-sm text-white/80 font-medium truncate">{tweet.author}</p>
-            <p className="text-[10px] sm:text-[11px] md:text-xs text-white/40 truncate">{tweet.handle}</p>
+            <p className="text-[11px] md:text-xs text-white/80 font-medium truncate">{tweet.author}</p>
+            <p className="text-[10px] md:text-[11px] text-white/40 truncate">{tweet.handle}</p>
           </div>
         </div>
-        <p className="text-xs sm:text-sm md:text-base text-white/90 leading-snug line-clamp-3 sm:line-clamp-4">
+        <p className="text-xs md:text-sm text-white/90 leading-snug line-clamp-3">
           {tweet.text}
         </p>
-        <p className="text-[9px] sm:text-[10px] md:text-xs text-white/30">{tweet.date}</p>
+        <p className="text-[9px] md:text-[10px] text-white/30">{tweet.date}</p>
       </div>
     </div>
   )
@@ -207,7 +211,7 @@ export default function FloatingWordCloud({ words, media = [], songs = [], tweet
   }
 
   return (
-    <div className="flex flex-wrap items-start justify-center gap-x-3 gap-y-2 sm:gap-x-4 sm:gap-y-3 md:gap-x-5 md:gap-y-4 py-4 md:py-6 min-h-[50vh]">
+    <div className="flex flex-wrap items-start justify-center gap-x-2 gap-y-1.5 md:gap-x-3 md:gap-y-2 py-3 md:py-5 min-h-[50vh] px-2 md:px-4">
       {shuffledContent.map((item, index) => {
         if (item.type === 'word') {
           const word = item.data as Word
@@ -218,7 +222,9 @@ export default function FloatingWordCloud({ words, media = [], songs = [], tweet
               style={{
                 fontSize: `${word.size}px`,
                 animationDelay: `${(index % 10) * 0.15}s`,
-                transform: `translateY(${(index % 5) * 3}px)`, // Slight vertical offset for misalignment
+                transform: `translateY(${(index % 7) * 4}px)`, // More variation in vertical offset
+                marginLeft: `${(index % 3) * 2}px`, // Slight horizontal offset for artful spacing
+                marginRight: `${(index % 4) * 2}px`,
               }}
               onClick={() => {
                 window.open(`https://www.google.com/search?q=${encodeURIComponent(word.text)}`, '_blank')
