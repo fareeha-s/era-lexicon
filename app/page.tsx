@@ -140,32 +140,32 @@ export default function Home() {
 
   return (
     <main className="relative bg-black">
-      {/* Year Picker - iOS style */}
-      <div className="fixed right-4 md:right-8 top-1/2 -translate-y-1/2 z-50">
-        <div className="relative flex flex-col items-center">
+      {/* Year Picker - iOS style - positioned for mobile */}
+      <div className="fixed right-2 sm:right-4 md:right-8 top-1/2 -translate-y-1/2 z-40">
+        <div className="relative flex flex-col items-center bg-black/60 backdrop-blur-sm rounded-lg px-1 sm:px-2">
           {/* Selection highlight bar */}
-          <div className="absolute top-1/2 -translate-y-1/2 w-full h-10 md:h-12 bg-white/5 border-y border-white/10 pointer-events-none" />
+          <div className="absolute top-1/2 -translate-y-1/2 w-full h-8 sm:h-10 md:h-12 bg-white/5 border-y border-white/10 pointer-events-none rounded" />
           
-          {/* Years stack */}
-          <div className="flex flex-col items-center py-2 overflow-hidden">
-            {/* Year +2 (very faded) */}
-            <div className="h-8 md:h-10 flex items-center justify-center">
-              <span className="text-sm md:text-base font-light tracking-wider text-white/10 transition-all duration-300">
+          {/* Years stack - compact on mobile */}
+          <div className="flex flex-col items-center py-1 sm:py-2 overflow-hidden">
+            {/* Year +2 (very faded) - hidden on small mobile */}
+            <div className="hidden sm:flex h-6 sm:h-8 md:h-10 items-center justify-center">
+              <span className="text-xs sm:text-sm md:text-base font-light tracking-wider text-white/10 transition-all duration-300">
                 {currentYear + 2 <= new Date().getFullYear() ? currentYear + 2 : ''}
               </span>
             </div>
             
             {/* Year +1 (faded) */}
-            <div className="h-8 md:h-10 flex items-center justify-center">
-              <span className="text-base md:text-lg font-light tracking-wider text-white/25 transition-all duration-300">
+            <div className="h-6 sm:h-8 md:h-10 flex items-center justify-center">
+              <span className="text-xs sm:text-base md:text-lg font-light tracking-wider text-white/20 sm:text-white/25 transition-all duration-300">
                 {currentYear + 1 <= new Date().getFullYear() ? currentYear + 1 : ''}
               </span>
             </div>
             
             {/* Current Year (bright, centered) */}
-            <div className="h-10 md:h-12 flex items-center justify-center">
+            <div className="h-8 sm:h-10 md:h-12 flex items-center justify-center">
               <span 
-                className="text-2xl md:text-3xl font-light tracking-wider text-white transition-all duration-300"
+                className="text-lg sm:text-2xl md:text-3xl font-light tracking-wider text-white transition-all duration-300"
                 key={currentYear}
               >
                 {currentYear}
@@ -173,15 +173,15 @@ export default function Home() {
             </div>
             
             {/* Year -1 (faded) */}
-            <div className="h-8 md:h-10 flex items-center justify-center">
-              <span className="text-base md:text-lg font-light tracking-wider text-white/25 transition-all duration-300">
+            <div className="h-6 sm:h-8 md:h-10 flex items-center justify-center">
+              <span className="text-xs sm:text-base md:text-lg font-light tracking-wider text-white/20 sm:text-white/25 transition-all duration-300">
                 {currentYear - 1 >= 2000 ? currentYear - 1 : ''}
               </span>
             </div>
             
-            {/* Year -2 (very faded) */}
-            <div className="h-8 md:h-10 flex items-center justify-center">
-              <span className="text-sm md:text-base font-light tracking-wider text-white/10 transition-all duration-300">
+            {/* Year -2 (very faded) - hidden on small mobile */}
+            <div className="hidden sm:flex h-6 sm:h-8 md:h-10 items-center justify-center">
+              <span className="text-xs sm:text-sm md:text-base font-light tracking-wider text-white/10 transition-all duration-300">
                 {currentYear - 2 >= 2000 ? currentYear - 2 : ''}
               </span>
             </div>
@@ -189,29 +189,29 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Fixed Header */}
-      <div className="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-4 md:py-6 bg-black/90 backdrop-blur-lg border-b border-white/10">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div>
-            <h1 className="text-lg md:text-2xl font-light tracking-[0.2em] md:tracking-[0.3em] text-white/90">
+      {/* Fixed Header - Mobile optimized */}
+      <div className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-4 md:px-8 py-3 sm:py-4 md:py-6 bg-black/90 backdrop-blur-lg border-b border-white/10 safe-area-inset">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-sm sm:text-lg md:text-2xl font-light tracking-[0.15em] sm:tracking-[0.2em] md:tracking-[0.3em] text-white/90 truncate">
               INTERNET NOSTALGIA
             </h1>
-            <p className="text-xs md:text-sm text-white/60 mt-1">
+            <p className="text-[10px] sm:text-xs md:text-sm text-white/60 mt-0.5 sm:mt-1">
               scroll to travel back in time
             </p>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
             <button
-              className="text-[11px] md:text-xs text-white/60 underline hover:text-white transition"
+              className="text-[10px] sm:text-[11px] md:text-xs text-white/60 underline hover:text-white transition min-h-[44px] flex items-center"
               onClick={() => setShowSources((v) => !v)}
             >
-              {showSources ? 'hide sources' : 'data sources'}
+              {showSources ? 'hide' : 'sources'}
             </button>
             <a
               href="https://fareeha.sh"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[10px] md:text-[11px] text-white/30 hover:text-white/60 transition-colors duration-300"
+              className="text-[9px] sm:text-[10px] md:text-[11px] text-white/30 hover:text-white/60 transition-colors duration-300 min-h-[44px] flex items-center"
             >
               by fareeha ✨
             </a>
@@ -219,19 +219,15 @@ export default function Home() {
         </div>
 
         {showSources && (
-          <div className="mt-4 text-[11px] md:text-xs text-white/70 bg-white/5 border border-white/10 rounded-lg p-3 md:p-4 space-y-1 max-w-7xl mx-auto">
+          <div className="mt-3 sm:mt-4 text-[10px] sm:text-[11px] md:text-xs text-white/70 bg-white/5 border border-white/10 rounded-lg p-2 sm:p-3 md:p-4 space-y-0.5 sm:space-y-1 max-w-7xl mx-auto">
             <p className="font-semibold text-white/80">sources:</p>
-            <p>• reddit (trending words by era)</p>
-            <p>• twitter/x (iconic tweets)</p>
-            <p>• youtube (viral moments & memes)</p>
-            <p>• spotify (era-defining songs)</p>
-            <p>• know your meme (cultural references)</p>
+            <p>• reddit, twitter/x, youtube, spotify</p>
           </div>
         )}
       </div>
 
-      {/* Scrollable Sections - Only render what's needed */}
-      <div className="pt-24 md:pt-32 pb-32 max-w-7xl mx-auto">
+      {/* Scrollable Sections - Only render what's needed, with right padding for year dial */}
+      <div className="pt-20 sm:pt-24 md:pt-32 pb-32 max-w-7xl mx-auto pr-12 sm:pr-16 md:pr-20">
         {timeline.slice(0, loadedCount).map((date, index) => {
           const year = date.getFullYear()
           const month = date.getMonth()
@@ -283,7 +279,7 @@ export default function Home() {
                   yearObserverRef.current.observe(el)
                 }
               }}
-              className="px-4 md:px-8"
+              className="px-2 sm:px-4 md:px-8"
             >
               <FloatingWordCloud 
                 words={wordCloudWords} 
