@@ -118,8 +118,16 @@ function SongCard({ song }: { song: Song }) {
 
 // Tweet card component
 function TweetCard({ tweet }: { tweet: Tweet }) {
+  // Construct Twitter/X URL - try to search for the tweet
+  const tweetUrl = `https://twitter.com/search?q=${encodeURIComponent(`from:${tweet.handle.replace('@', '')} ${tweet.text.slice(0, 50)}`)}&src=typed_query&f=live`
+  
   return (
-    <div className="block w-40 md:w-48 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-blue-400/30 rounded-lg p-2 md:p-3 transition-all hover:scale-105 flex-shrink-0">
+    <a
+      href={tweetUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block w-40 md:w-48 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-blue-400/30 rounded-lg p-2 md:p-3 transition-all hover:scale-105 flex-shrink-0 cursor-pointer"
+    >
       <div className="space-y-2">
         <div className="flex items-start gap-2">
           <svg className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24">
@@ -142,7 +150,7 @@ function TweetCard({ tweet }: { tweet: Tweet }) {
           )}
         </div>
       </div>
-    </div>
+    </a>
   )
 }
 
