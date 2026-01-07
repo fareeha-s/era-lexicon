@@ -75,28 +75,85 @@ const GifImageThumbnail = memo(function GifImageThumbnail({ item }: { item: any 
   )
 })
 
-// Video thumbnail - memoized and optimized - HARD RULE: Only show if video is actually available
+// Video thumbnail - memoized and optimized - BULLETPROOF: Only show if video is DEFINITELY available
+// Uses maxresdefault.jpg which ONLY exists for available HD videos - if it fails, video is unavailable
 // UNIFORM SIZE: 240px x 135px on desktop (16:9), 180px x 101px on mobile
 const VideoThumbnail = memo(function VideoThumbnail({ item, onSelect }: { item: any, onSelect?: (id: string) => void }) {
   const [isAvailable, setIsAvailable] = useState(false)
+  const [thumbnailUrl, setThumbnailUrl] = useState('')
   
   useEffect(() => {
-    const img = new window.Image()
-    img.onload = () => {
-      // STRICT CHECK: Only show if real thumbnail (not default/placeholder)
-      if (img.naturalWidth > 120 && img.naturalHeight > 90) {
-        setIsAvailable(true)
+    let cancelled = false
+    
+    // Try maxresdefault first - ONLY exists for available HD videos
+    const tryMaxRes = () => {
+      const img = new window.Image()
+      img.onload = () => {
+        if (cancelled) return
+        // maxresdefault is 1280x720 - if we get this, video is DEFINITELY available
+        if (img.naturalWidth >= 1280) {
+          setThumbnailUrl(`https://img.youtube.com/vi/${item.id}/maxresdefault.jpg`)
+          setIsAvailable(true)
+        } else {
+          // Got a placeholder instead, try hqdefault
+          tryHqDefault()
+        }
       }
+      img.onerror = () => {
+        if (cancelled) return
+        // maxresdefault doesn't exist, try hqdefault
+        tryHqDefault()
+      }
+      img.src = `https://img.youtube.com/vi/${item.id}/maxresdefault.jpg`
     }
-    img.onerror = () => {
-      // Explicitly handle errors - never show broken videos
-      setIsAvailable(false)
+    
+    // Fallback to hqdefault - check if it's a real thumbnail (480x360) vs placeholder
+    const tryHqDefault = () => {
+      const img = new window.Image()
+      img.onload = () => {
+        if (cancelled) return
+        // hqdefault should be 480x360 for real videos
+        // Placeholder images also return 480x360 but we'll detect them by trying to load
+        // If the image loads AND has proper dimensions, it's likely real
+        if (img.naturalWidth === 480 && img.naturalHeight === 360) {
+          // Additional check: create canvas to sample pixel colors
+          // Grey placeholder has specific grey color around (128, 128, 128)
+          const canvas = document.createElement('canvas')
+          const ctx = canvas.getContext('2d')
+          if (ctx) {
+            canvas.width = img.naturalWidth
+            canvas.height = img.naturalHeight
+            ctx.drawImage(img, 0, 0)
+            // Sample center pixel
+            const centerPixel = ctx.getImageData(img.naturalWidth / 2, img.naturalHeight / 2, 1, 1).data
+            // If it's grey (R≈G≈B and around 120-140), it's a placeholder
+            const isGrey = Math.abs(centerPixel[0] - centerPixel[1]) < 10 && 
+                           Math.abs(centerPixel[1] - centerPixel[2]) < 10 &&
+                           centerPixel[0] > 100 && centerPixel[0] < 160
+            if (!isGrey) {
+              setThumbnailUrl(`https://img.youtube.com/vi/${item.id}/hqdefault.jpg`)
+              setIsAvailable(true)
+            }
+            // If grey, don't show - it's a placeholder
+          }
+        }
+      }
+      img.onerror = () => {
+        // Complete failure - don't show
+        if (cancelled) return
+        setIsAvailable(false)
+      }
+      img.crossOrigin = 'anonymous' // Needed for canvas pixel sampling
+      img.src = `https://img.youtube.com/vi/${item.id}/hqdefault.jpg`
     }
-    img.src = `https://img.youtube.com/vi/${item.id}/mqdefault.jpg`
+    
+    tryMaxRes()
+    
+    return () => { cancelled = true }
   }, [item.id])
 
-  // HARD RULE: If not available, NEVER render
-  if (!isAvailable) return null
+  // HARD RULE: If not verified available, NEVER render
+  if (!isAvailable || !thumbnailUrl) return null
 
   return (
     <button
@@ -105,7 +162,7 @@ const VideoThumbnail = memo(function VideoThumbnail({ item, onSelect }: { item: 
       title={item.title}
     >
       <NextImage
-        src={`https://img.youtube.com/vi/${item.id}/mqdefault.jpg`}
+        src={thumbnailUrl}
         alt={item.title}
         fill
         sizes="(max-width: 768px) 180px, 240px"

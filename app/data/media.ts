@@ -50,11 +50,6 @@ export const ERA_MEDIA: Record<string, MediaItem[]> = {
   '2007-2009': [
     {
       type: 'youtube',
-      title: 'Charlie Bit My Finger',
-      id: '_OBlgSz8sSM',
-    },
-    {
-      type: 'youtube',
       title: 'Keyboard Cat',
       id: 'J---aiyznGQ',
     },
@@ -62,11 +57,6 @@ export const ERA_MEDIA: Record<string, MediaItem[]> = {
       type: 'youtube',
       title: 'Dramatic Chipmunk',
       id: 'a1Y73sPHKxw',
-    },
-    {
-      type: 'youtube',
-      title: 'Sneezing Panda',
-      id: 'FzRH3iTQPrk',
     },
   ],
   
@@ -181,16 +171,6 @@ export const ERA_MEDIA: Record<string, MediaItem[]> = {
   ],
   
   '2025-2026': [
-    {
-      type: 'youtube',
-      title: 'Big Chungus Returns',
-      id: 'cB4dYfFgaME',
-    },
-    {
-      type: 'youtube',
-      title: 'Nyan Cat 10 Hours',
-      id: 'QH2-TGUlwu4',
-    },
     {
       type: 'youtube',
       title: 'Mr Beast Squid Game',
