@@ -6,26 +6,7 @@ export interface SongItem {
 }
 
 export const ERA_SONGS: Record<string, SongItem[]> = {
-  '2000-2003': [
-    {
-      title: 'Dragostea Din Tei',
-      artist: 'O-Zone',
-      spotifyId: '02l43tcNi3hkXKCN0Ovvdj',
-      memeContext: 'Numa Numa (later)'
-    },
-    {
-      title: 'Sandstorm',
-      artist: 'Darude',
-      spotifyId: '6Sy9BUbgFse0n0LPA5lwy5',
-      memeContext: 'Song name meme'
-    },
-    {
-      title: 'Hey Ya!',
-      artist: 'OutKast',
-      spotifyId: '4NhtEN2OVFqb9vEUqLAWGI',
-      memeContext: 'Shake it'
-    },
-  ],
+  '2000-2003': [], // Spotify didn't exist - people used Napster/Limewire
   
   '2004-2006': [
     {

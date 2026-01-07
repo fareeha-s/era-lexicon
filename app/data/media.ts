@@ -6,38 +6,7 @@ export interface MediaItem {
 }
 
 export const ERA_MEDIA: Record<string, MediaItem[]> = {
-  '2000-2003': [
-    {
-      type: 'youtube',
-      title: 'All Your Base Are Belong To Us',
-      id: '8fvTxv46ano',
-    },
-    {
-      type: 'youtube',
-      title: 'Badger Badger Badger',
-      id: 'EIyixC9NsLI',
-    },
-    {
-      type: 'youtube',
-      title: 'Hamster Dance',
-      id: 'p3G5IXn0K7A',
-    },
-    {
-      type: 'youtube',
-      title: 'Homestar Runner',
-      id: 'yoO0OUJE71w',
-    },
-    {
-      type: 'youtube',
-      title: 'Strong Bad Email',
-      id: 'UcPhLb4PEhg',
-    },
-    {
-      type: 'youtube',
-      title: 'Schfifty Five',
-      id: '-XccUMOQ978',
-    },
-  ],
+  '2000-2003': [], // YouTube didn't exist yet - only Flash animations and GIFs on websites
   
   '2004-2006': [
     {
@@ -47,28 +16,13 @@ export const ERA_MEDIA: Record<string, MediaItem[]> = {
     },
     {
       type: 'youtube',
-      title: 'Leeroy Jenkins',
-      id: 'mLyOj_QD4a4',
-    },
-    {
-      type: 'youtube',
-      title: 'Chocolate Rain Original',
-      id: 'EwTZ2xpQwpA',
-    },
-    {
-      type: 'youtube',
-      title: 'Star Wars Kid',
-      id: 'HPPj6viIBmU',
-    },
-    {
-      type: 'youtube',
       title: 'Lazy Sunday SNL',
       id: 'sRhTeaa_B98',
     },
     {
       type: 'youtube',
-      title: 'O RLY Owl',
-      id: 'A8KHXv0ZWQA',
+      title: 'Evolution of Dance',
+      id: 'dMH0bHeiRNg',
     },
   ],
   

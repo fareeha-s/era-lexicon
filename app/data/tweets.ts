@@ -8,7 +8,7 @@ export interface TweetItem {
 }
 
 export const ERA_TWEETS: Record<string, TweetItem[]> = {
-  '2000-2003': [],
+  '2000-2003': [], // Twitter didn't exist yet
   
   '2004-2006': [
     {
@@ -30,7 +30,15 @@ export const ERA_TWEETS: Record<string, TweetItem[]> = {
     },
   ],
   
-  '2010-2012': [],
+  '2010-2012': [
+    {
+      text: 'I made a new word - Belieber!',
+      author: 'Justin Bieber',
+      handle: '@justinbieber',
+      date: '2010',
+      context: 'Bieber fever era'
+    },
+  ],
   
   '2013-2015': [
     {
