@@ -152,23 +152,23 @@ const ERA_TERMS: Record<string, { text: string; count: number }[]> = {
     { text: 'ick', count: 46 },
   ],
   
-  // 2025-2026: Current era - FRESH Jan 2026 trends
+  // 2025-2026: Current era - Fresh trends + meme language
   '2025-2026': [
-    { text: 'fate of ophelia', count: 100 },
-    { text: 'taylor swift', count: 98 },
-    { text: 'apt dance', count: 95 },
+    { text: 'ate', count: 100 },
+    { text: 'slay', count: 98 },
+    { text: 'taylor ate', count: 95 },
     { text: 'tiktok ban', count: 92 },
-    { text: 'bad bunny', count: 88 },
-    { text: 'rosé', count: 85 },
-    { text: 'bruno mars', count: 82 },
-    { text: 'new year resolutions', count: 78 },
-    { text: 'mariah carey', count: 75 },
-    { text: 'kendrick', count: 72 },
-    { text: 'sabrina carpenter', count: 68 },
-    { text: 'lady gaga', count: 65 },
-    { text: 'wicked', count: 62 },
-    { text: 'squid game 2', count: 58 },
-    { text: 'die with a smile', count: 55 },
+    { text: 'brain rot', count: 88 },
+    { text: 'delulu', count: 85 },
+    { text: 'apt dance', count: 82 },
+    { text: 'wicked', count: 78 },
+    { text: 'very demure', count: 75 },
+    { text: 'its giving', count: 72 },
+    { text: 'understood assignment', count: 68 },
+    { text: 'squid game 2', count: 65 },
+    { text: 'no crumbs', count: 62 },
+    { text: 'mother', count: 58 },
+    { text: 'the serve', count: 55 },
   ],
 }
 
