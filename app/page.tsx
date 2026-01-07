@@ -21,9 +21,11 @@ export default function Home() {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear())
   const [isMounted, setIsMounted] = useState(false)
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set())
+  const [isDraggingDial, setIsDraggingDial] = useState(false)
   const loadMoreRef = useRef<HTMLDivElement | null>(null)
   const yearObserverRef = useRef<IntersectionObserver | null>(null)
   const fadeObserverRef = useRef<IntersectionObserver | null>(null)
+  const dialRef = useRef<HTMLDivElement | null>(null)
 
   // Set random seed on client only to avoid hydration mismatch
   useEffect(() => {
@@ -184,11 +186,124 @@ export default function Home() {
     }
   }, [])
 
+  // Dial interaction handlers
+  const scrollToYear = useCallback((targetYear: number) => {
+    // Find the first section for that year
+    const yearSections = Array.from(document.querySelectorAll('[data-year]'))
+    const targetSection = yearSections.find(section => {
+      const year = parseInt(section.getAttribute('data-year') || '0')
+      return year === targetYear
+    })
+    
+    if (targetSection) {
+      targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }, [])
+
+  const handleDialInteraction = useCallback((clientY: number) => {
+    if (!dialRef.current) return
+    
+    const rect = dialRef.current.getBoundingClientRect()
+    const centerY = rect.top + rect.height / 2
+    const deltaY = clientY - centerY
+    const maxDelta = rect.height / 2
+    
+    // Map vertical position to year (2026 at top, 2000 at bottom)
+    const currentYearValue = new Date().getFullYear()
+    const minYear = 2000
+    const percentage = Math.max(-1, Math.min(1, deltaY / maxDelta))
+    const targetYear = Math.round(currentYearValue - percentage * (currentYearValue - minYear))
+    
+    const clampedYear = Math.max(minYear, Math.min(currentYearValue, targetYear))
+    scrollToYear(clampedYear)
+  }, [scrollToYear])
+
+  const handleDialMouseDown = useCallback((e: React.MouseEvent) => {
+    e.preventDefault()
+    setIsDraggingDial(true)
+    handleDialInteraction(e.clientY)
+  }, [handleDialInteraction])
+
+  const handleDialTouchStart = useCallback((e: React.TouchEvent) => {
+    if (e.touches.length > 0) {
+      setIsDraggingDial(true)
+      handleDialInteraction(e.touches[0].clientY)
+    }
+  }, [handleDialInteraction])
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (isDraggingDial) {
+        handleDialInteraction(e.clientY)
+      }
+    }
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (isDraggingDial && e.touches.length > 0) {
+        handleDialInteraction(e.touches[0].clientY)
+      }
+    }
+
+    const handleEnd = () => {
+      setIsDraggingDial(false)
+    }
+
+    if (isDraggingDial) {
+      document.addEventListener('mousemove', handleMouseMove)
+      document.addEventListener('mouseup', handleEnd)
+      document.addEventListener('touchmove', handleTouchMove)
+      document.addEventListener('touchend', handleEnd)
+      document.body.style.cursor = 'grabbing'
+    }
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove)
+      document.removeEventListener('mouseup', handleEnd)
+      document.removeEventListener('touchmove', handleTouchMove)
+      document.removeEventListener('touchend', handleEnd)
+      document.body.style.cursor = ''
+    }
+  }, [isDraggingDial, handleDialInteraction])
 
   return (
     <main className="relative bg-black">
-      {/* Year Picker - iOS style - positioned for mobile */}
-      <div className="fixed right-2 sm:right-4 md:right-8 top-1/2 -translate-y-1/2 z-40">
+      {/* Year Controls - iOS style with dial - positioned for mobile */}
+      <div className="fixed right-2 sm:right-4 md:right-8 top-1/2 -translate-y-1/2 z-40 flex items-center gap-2 sm:gap-3">
+        {/* Interactive Dial Scrubber */}
+        <div 
+          ref={dialRef}
+          className="relative w-8 sm:w-10 md:w-12 h-32 sm:h-40 md:h-48 bg-black/60 backdrop-blur-sm rounded-full border border-white/20 cursor-grab active:cursor-grabbing touch-none select-none"
+          onMouseDown={handleDialMouseDown}
+          onTouchStart={handleDialTouchStart}
+          title="Drag to jump to a year"
+        >
+          {/* Notches/tick marks */}
+          <div className="absolute inset-0 flex flex-col justify-between py-3 sm:py-4 md:py-5 px-1">
+            {Array.from({ length: 7 }).map((_, i) => (
+              <div 
+                key={i} 
+                className="w-full h-px bg-white/20"
+              />
+            ))}
+          </div>
+          
+          {/* Center indicator */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1 sm:w-1.5 h-3 sm:h-4 bg-white rounded-full" />
+          
+          {/* Drag hint icon */}
+          <div className="absolute left-1/2 top-2 -translate-x-1/2 text-white/30 text-[8px] sm:text-[9px]">
+            <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+            </svg>
+          </div>
+          <div className="absolute left-1/2 bottom-2 -translate-x-1/2 text-white/30 text-[8px] sm:text-[9px]">
+            <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+            </svg>
+          </div>
+        </div>
+
+        {/* Year Display */}
         <div className="relative flex flex-col items-center bg-black/60 backdrop-blur-sm rounded-lg px-1 sm:px-2">
           {/* Selection highlight bar */}
           <div className="absolute top-1/2 -translate-y-1/2 w-full h-8 sm:h-10 md:h-12 bg-white/5 border-y border-white/10 pointer-events-none rounded" />
@@ -273,8 +388,8 @@ export default function Home() {
         )}
       </div>
 
-      {/* Scrollable Sections - Only render what's needed, with right padding for year dial */}
-      <div className="pt-20 sm:pt-24 md:pt-32 pb-32 max-w-7xl mx-auto pr-12 sm:pr-16 md:pr-20">
+      {/* Scrollable Sections - Only render what's needed, with right padding for year controls */}
+      <div className="pt-20 sm:pt-24 md:pt-32 pb-32 max-w-7xl mx-auto pr-16 sm:pr-20 md:pr-28">
         {(() => {
           // Build year cards sequentially with global no-repeat guarantees.
           const seen = {
