@@ -73,6 +73,20 @@ section {
   animation: fadeIn 0.4s ease-out;
 }
 
+/* Beautiful initial page load fade */
+@keyframes fadeInContent {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.initial-load-fade {
+  animation: fadeInContent 1.2s ease-out forwards;
+}
+
 @keyframes float {
   0%, 100% {
     transform: translate3d(0, 6px, 0);

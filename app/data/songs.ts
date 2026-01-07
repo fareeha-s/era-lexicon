@@ -157,40 +157,10 @@ export const ERA_SONGS: Record<string, SongItem[]> = {
       memeContext: 'What you know about meme'
     },
     {
-      title: 'WAP',
-      artist: 'Cardi B, Megan Thee Stallion',
-      spotifyId: '4Oun2ylbjFKMPTiaSbbCih',
-      memeContext: 'WAP dance'
-    },
-    {
-      title: 'Blinding Lights',
-      artist: 'The Weeknd',
-      spotifyId: '0VjIjW4GlUZAMYd2vXMi3b',
-      memeContext: 'TikTok viral'
-    },
-    {
-      title: 'Savage',
-      artist: 'Megan Thee Stallion',
-      spotifyId: '0jnsk9HBraJW0tzVKfB9Qp',
-      memeContext: 'Savage challenge'
-    },
-    {
-      title: 'Renegade',
-      artist: 'K CAMP',
-      spotifyId: '5vNRhkKd0yEAg8suGBpjeY',
-      memeContext: 'Renegade dance'
-    },
-    {
       title: 'Dreams',
       artist: 'Fleetwood Mac',
       spotifyId: '0ofHAoxe9vBkTCp2UQIavz',
       memeContext: 'Skateboard guy'
-    },
-    {
-      title: 'Levitating',
-      artist: 'Dua Lipa',
-      spotifyId: '39LLxExYz6ewLAcYrzQQyP',
-      memeContext: 'TikTok dance'
     },
   ],
   
@@ -214,58 +184,10 @@ export const ERA_SONGS: Record<string, SongItem[]> = {
       memeContext: 'Brat summer dance'
     },
     {
-      title: 'Espresso',
-      artist: 'Sabrina Carpenter',
-      spotifyId: '2qSkIjg1o9h3YT9RAgYN75',
-      memeContext: 'That\'s that me espresso'
-    },
-    {
       title: 'Cupid - Twin Ver.',
       artist: 'FIFTY FIFTY',
       spotifyId: '4e1aewX6ATPcdfQIqr7gqO',
       memeContext: 'TikTok viral'
-    },
-    {
-      title: 'Unholy',
-      artist: 'Sam Smith, Kim Petras',
-      spotifyId: '3nqQXoyQOWXiESFLlDF1hG',
-      memeContext: 'TikTok dance trend'
-    },
-    {
-      title: 'Anti-Hero',
-      artist: 'Taylor Swift',
-      spotifyId: '0V3wPSX9ygBnCm8psDIegu',
-      memeContext: 'Midnights era'
-    },
-    {
-      title: 'Flowers',
-      artist: 'Miley Cyrus',
-      spotifyId: '0yc6Gst2xkRu0eMLeRMGCX',
-      memeContext: 'Viral breakup anthem'
-    },
-    {
-      title: 'Calm Down',
-      artist: 'Rema, Selena Gomez',
-      spotifyId: '1HLQfSH96VkRzF8p0LaA4G',
-      memeContext: 'TikTok dance'
-    },
-    {
-      title: 'As It Was',
-      artist: 'Harry Styles',
-      spotifyId: '3rUGC1vUpkDG9CZFHMur1t',
-      memeContext: 'Everywhere 2022'
-    },
-    {
-      title: 'Heat Waves',
-      artist: 'Glass Animals',
-      spotifyId: '02MWAaffLxlfxAUY7c5dvx',
-      memeContext: 'TikTok viral'
-    },
-    {
-      title: 'Snooze',
-      artist: 'SZA',
-      spotifyId: '4iZ4pt7kvcaH6Yo8UoZ4s2',
-      memeContext: 'SZA SOS era'
     },
   ],
   

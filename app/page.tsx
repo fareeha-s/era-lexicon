@@ -34,7 +34,7 @@ export default function Home() {
 
   // Delay animations slightly to prevent jank on initial load
   useEffect(() => {
-    const timer = setTimeout(() => setIsMounted(true), 100)
+    const timer = setTimeout(() => setIsMounted(true), 200)
     return () => clearTimeout(timer)
   }, [])
 
@@ -483,11 +483,16 @@ export default function Home() {
                     if (fadeObserverRef.current) fadeObserverRef.current.observe(el)
                   }
                 }}
-                className={`px-2 sm:px-4 md:px-8 transition-all duration-1000 ease-out transform ${
-                  isVisible 
-                    ? 'opacity-100 translate-y-0' 
-                    : 'opacity-0 translate-y-8'
+                className={`px-2 sm:px-4 md:px-8 ${
+                  isMounted 
+                    ? `transition-all duration-1000 ease-out transform ${
+                        isVisible 
+                          ? 'opacity-100 translate-y-0' 
+                          : 'opacity-0 translate-y-8'
+                      }` 
+                    : 'opacity-0'
                 }`}
+                style={!isMounted ? { visibility: 'hidden' } : {}}
               >
                 <FloatingWordCloud
                   words={card.wordCloudWords}

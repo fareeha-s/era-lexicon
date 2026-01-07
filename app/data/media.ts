@@ -160,21 +160,6 @@ export const ERA_MEDIA: Record<string, MediaItem[]> = {
       title: 'Old Town Road',
       id: 'w2Ov5jzm3j8',
     },
-    {
-      type: 'youtube',
-      title: 'WAP - Cardi B',
-      id: 'hsm4poTWjMs',
-    },
-    {
-      type: 'youtube',
-      title: 'Blinding Lights - The Weeknd',
-      id: 'fHI8X4OXluQ',
-    },
-    {
-      type: 'youtube',
-      title: 'Savage - Megan Thee Stallion',
-      id: 'EOxj2ROIxok',
-    },
   ],
   
   '2022-2024': [
@@ -193,21 +178,6 @@ export const ERA_MEDIA: Record<string, MediaItem[]> = {
       title: 'Skibidi Toilet',
       id: 'WIJmzvQWeTo',
     },
-    {
-      type: 'youtube',
-      title: 'Barbie Movie Trailer',
-      id: 'pBk4NYhWNMM',
-    },
-    {
-      type: 'youtube',
-      title: 'Flowers - Miley Cyrus',
-      id: 'G7KNmW9a75Y',
-    },
-    {
-      type: 'youtube',
-      title: 'Anti-Hero - Taylor Swift',
-      id: 'b1kbLwvqugk',
-    },
   ],
   
   '2025-2026': [
@@ -220,31 +190,6 @@ export const ERA_MEDIA: Record<string, MediaItem[]> = {
       type: 'youtube',
       title: 'Nyan Cat 10 Hours',
       id: 'QH2-TGUlwu4',
-    },
-    {
-      type: 'youtube',
-      title: 'APT. - ROSÉ & Bruno Mars',
-      id: 'ekr2nIex040',
-    },
-    {
-      type: 'youtube',
-      title: 'Squid Game Season 2 Trailer',
-      id: 'Ed5QQOX0ByU',
-    },
-    {
-      type: 'youtube',
-      title: 'Wicked Movie Official',
-      id: '6COmYeLsz4c',
-    },
-    {
-      type: 'youtube',
-      title: 'Die With A Smile MV',
-      id: 'kPa7bsKwL-c',
-    },
-    {
-      type: 'youtube',
-      title: 'Moana 2 Trailer',
-      id: 'hDZ7y8RP5HE',
     },
     {
       type: 'youtube',
