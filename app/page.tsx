@@ -133,6 +133,40 @@ export default function Home() {
     return shuffled
   }
 
+  // Simple hash function for strings
+  const hashString = (str: string): number => {
+    let hash = 0
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i)
+      hash = ((hash << 5) - hash) + char
+      hash = hash & hash // Convert to 32bit integer
+    }
+    return Math.abs(hash)
+  }
+
+  // Filter content to only show in 3 months max per year
+  // Each item deterministically appears in 3 specific months based on its ID
+  const filterByMonthEligibility = <T extends { id?: string; title?: string; text?: string; spotifyId?: string }>(
+    items: T[],
+    currentMonth: number
+  ): T[] => {
+    return items.filter(item => {
+      // Create a unique identifier for the item
+      const itemId = item.id || item.title || item.text || item.spotifyId || ''
+      const hash = hashString(itemId)
+      
+      // Determine which 3 months (0-11) this item appears in
+      const baseMonth = hash % 12
+      const eligibleMonths = [
+        baseMonth,
+        (baseMonth + 4) % 12,  // Spread them out
+        (baseMonth + 8) % 12
+      ]
+      
+      return eligibleMonths.includes(currentMonth)
+    })
+  }
+
   const wordCloudWords = useMemo(
     () => {
       if (data.length === 0) return []
@@ -166,49 +200,47 @@ export default function Home() {
     ).length
   }, [data, memeData])
 
-  // Get media for current era and shuffle
+  // Helper to get era from year
+  const getEra = (year: number): string => {
+    if (year >= 2025) return '2025-2026'
+    if (year >= 2022) return '2022-2024'
+    if (year >= 2019) return '2019-2021'
+    if (year >= 2016) return '2016-2018'
+    if (year >= 2013) return '2013-2015'
+    if (year >= 2010) return '2010-2012'
+    if (year >= 2007) return '2007-2009'
+    if (year >= 2004) return '2004-2006'
+    return '2000-2003'
+  }
+
+  // Get media for current era - filtered to max 3 months per item, then shuffled
   const currentMedia = useMemo(() => {
     const year = currentDate.getFullYear()
-    let era = '2025-2026'
-    if (year < 2025) era = '2022-2024'
-    if (year < 2022) era = '2019-2021'
-    if (year < 2019) era = '2016-2018'
-    if (year < 2016) era = '2013-2015'
-    if (year < 2013) era = '2010-2012'
-    if (year < 2010) era = '2007-2009'
-    if (year < 2007) era = '2004-2006'
-    if (year < 2004) era = '2000-2003'
-    return shuffleArray(ERA_MEDIA[era] || [])
+    const month = currentDate.getMonth()
+    const era = getEra(year)
+    const eraMedia = ERA_MEDIA[era] || []
+    const filtered = filterByMonthEligibility(eraMedia, month)
+    return shuffleArray(filtered.length > 0 ? filtered : eraMedia.slice(0, 3))
   }, [currentDate, shuffleKey])
 
-  // Get songs for current era and shuffle
+  // Get songs for current era - filtered to max 3 months per item, then shuffled
   const currentSongs = useMemo(() => {
     const year = currentDate.getFullYear()
-    let era = '2025-2026'
-    if (year < 2025) era = '2022-2024'
-    if (year < 2022) era = '2019-2021'
-    if (year < 2019) era = '2016-2018'
-    if (year < 2016) era = '2013-2015'
-    if (year < 2013) era = '2010-2012'
-    if (year < 2010) era = '2007-2009'
-    if (year < 2007) era = '2004-2006'
-    if (year < 2004) era = '2000-2003'
-    return shuffleArray(ERA_SONGS[era] || [])
+    const month = currentDate.getMonth()
+    const era = getEra(year)
+    const eraSongs = ERA_SONGS[era] || []
+    const filtered = filterByMonthEligibility(eraSongs, month)
+    return shuffleArray(filtered.length > 0 ? filtered : eraSongs.slice(0, 2))
   }, [currentDate, shuffleKey])
 
-  // Get tweets for current era and shuffle
+  // Get tweets for current era - filtered to max 3 months per item, then shuffled
   const currentTweets = useMemo(() => {
     const year = currentDate.getFullYear()
-    let era = '2025-2026'
-    if (year < 2025) era = '2022-2024'
-    if (year < 2022) era = '2019-2021'
-    if (year < 2019) era = '2016-2018'
-    if (year < 2016) era = '2013-2015'
-    if (year < 2013) era = '2010-2012'
-    if (year < 2010) era = '2007-2009'
-    if (year < 2007) era = '2004-2006'
-    if (year < 2004) era = '2000-2003'
-    return shuffleArray(ERA_TWEETS[era] || [])
+    const month = currentDate.getMonth()
+    const era = getEra(year)
+    const eraTweets = ERA_TWEETS[era] || []
+    const filtered = filterByMonthEligibility(eraTweets, month)
+    return shuffleArray(filtered.length > 0 ? filtered : eraTweets.slice(0, 2))
   }, [currentDate, shuffleKey])
 
   return (
