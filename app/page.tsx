@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useEffect, useRef } from 'react'
+import { useState, useMemo, useEffect, useRef, useCallback } from 'react'
 import FloatingWordCloud from './components/FloatingWordCloud'
 import MediaGallery from './components/MediaGallery'
 import { ERA_MEDIA } from './data/media'
