@@ -147,51 +147,52 @@ export default function Home() {
 
   return (
     <main className="relative bg-black">
-      {/* Year Dial - Apple Watch style */}
-      <div className="fixed right-4 md:right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center">
-        {/* Dial Container */}
-        <div className="relative w-16 h-16 md:w-20 md:h-20">
-          {/* Outer Ring */}
-          <div className="absolute inset-0 rounded-full border-2 border-white/20 bg-black/80 backdrop-blur-xl" />
+      {/* Year Picker - iOS style */}
+      <div className="fixed right-4 md:right-8 top-1/2 -translate-y-1/2 z-50">
+        <div className="relative flex flex-col items-center">
+          {/* Selection highlight bar */}
+          <div className="absolute top-1/2 -translate-y-1/2 w-full h-10 md:h-12 bg-white/5 border-y border-white/10 pointer-events-none" />
           
-          {/* Tick Marks */}
-          <div className="absolute inset-0">
-            {[...Array(12)].map((_, i) => (
-              <div
-                key={i}
-                className="absolute w-0.5 h-1.5 bg-white/30 left-1/2 -translate-x-1/2"
-                style={{
-                  top: '4px',
-                  transform: `translateX(-50%) rotate(${i * 30}deg)`,
-                  transformOrigin: 'center 28px',
-                }}
-              />
-            ))}
+          {/* Years stack */}
+          <div className="flex flex-col items-center py-2 overflow-hidden">
+            {/* Year +2 (very faded) */}
+            <div className="h-8 md:h-10 flex items-center justify-center">
+              <span className="text-sm md:text-base font-light tracking-wider text-white/10 transition-all duration-300">
+                {currentYear + 2 <= new Date().getFullYear() ? currentYear + 2 : ''}
+              </span>
+            </div>
+            
+            {/* Year +1 (faded) */}
+            <div className="h-8 md:h-10 flex items-center justify-center">
+              <span className="text-base md:text-lg font-light tracking-wider text-white/25 transition-all duration-300">
+                {currentYear + 1 <= new Date().getFullYear() ? currentYear + 1 : ''}
+              </span>
+            </div>
+            
+            {/* Current Year (bright, centered) */}
+            <div className="h-10 md:h-12 flex items-center justify-center">
+              <span 
+                className="text-2xl md:text-3xl font-light tracking-wider text-white transition-all duration-300"
+                key={currentYear}
+              >
+                {currentYear}
+              </span>
+            </div>
+            
+            {/* Year -1 (faded) */}
+            <div className="h-8 md:h-10 flex items-center justify-center">
+              <span className="text-base md:text-lg font-light tracking-wider text-white/25 transition-all duration-300">
+                {currentYear - 1 >= 2000 ? currentYear - 1 : ''}
+              </span>
+            </div>
+            
+            {/* Year -2 (very faded) */}
+            <div className="h-8 md:h-10 flex items-center justify-center">
+              <span className="text-sm md:text-base font-light tracking-wider text-white/10 transition-all duration-300">
+                {currentYear - 2 >= 2000 ? currentYear - 2 : ''}
+              </span>
+            </div>
           </div>
-          
-          {/* Year Display */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span 
-              className="text-lg md:text-xl font-light tracking-wider text-white/90 transition-all duration-300"
-              key={currentYear}
-            >
-              {currentYear}
-            </span>
-          </div>
-          
-          {/* Inner glow */}
-          <div className="absolute inset-2 rounded-full bg-gradient-to-b from-white/5 to-transparent pointer-events-none" />
-        </div>
-        
-        {/* Direction indicator */}
-        <div className="mt-3 flex flex-col items-center gap-1 text-white/30">
-          <svg className="w-3 h-3 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
-          <span className="text-[8px] md:text-[10px] tracking-widest uppercase">scroll</span>
-          <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
         </div>
       </div>
 
