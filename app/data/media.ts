@@ -29,8 +29,23 @@ export const ERA_MEDIA: Record<string, MediaItem[]> = {
     },
     {
       type: 'youtube',
-      title: 'Rick Astley - Never Gonna Give You Up',
+      title: 'Rick Roll',
       id: 'dQw4w9WgXcQ',
+    },
+    {
+      type: 'youtube',
+      title: 'Dramatic Chipmunk',
+      id: 'a1Y73sPHKxw',
+    },
+    {
+      type: 'youtube',
+      title: 'Numa Numa Dance',
+      id: 'KmtzQCSh6xk',
+    },
+    {
+      type: 'youtube',
+      title: 'Evolution of Dance',
+      id: 'dMH0bHeiRNg',
     },
   ],
   
@@ -59,6 +74,21 @@ export const ERA_MEDIA: Record<string, MediaItem[]> = {
       type: 'youtube',
       title: 'Harlem Shake',
       id: '384IUU43Vos',
+    },
+    {
+      type: 'youtube',
+      title: 'Call Me Maybe',
+      id: 'fWNaR-rxAic',
+    },
+    {
+      type: 'youtube',
+      title: 'Kony 2012',
+      id: 'Y4MnpzG5Sqc',
+    },
+    {
+      type: 'youtube',
+      title: 'Bed Intruder Song',
+      id: 'hMtZfW2z9dw',
     },
   ],
   
